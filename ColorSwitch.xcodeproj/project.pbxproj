@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11304BE20C7E76B00746532 /* PlayerFigure.swift */; };
+		A11304C120C7E7C300746532 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11304C020C7E7C300746532 /* Circle.swift */; };
 		A1A1F03D20C7B44900C4CDE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1F03C20C7B44900C4CDE5 /* AppDelegate.swift */; };
 		A1A1F03F20C7B44900C4CDE5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A1A1F03E20C7B44900C4CDE5 /* GameScene.sks */; };
 		A1A1F04120C7B44900C4CDE5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = A1A1F04020C7B44900C4CDE5 /* Actions.sks */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A11304BE20C7E76B00746532 /* PlayerFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFigure.swift; sourceTree = "<group>"; };
+		A11304C020C7E7C300746532 /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		A1A1F03920C7B44900C4CDE5 /* ColorSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A1F03C20C7B44900C4CDE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1A1F03E20C7B44900C4CDE5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -80,9 +84,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A11304BD20C7E73F00746532 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				A11304BE20C7E76B00746532 /* PlayerFigure.swift */,
+				A11304C020C7E7C300746532 /* Circle.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		A1A1F03020C7B44900C4CDE5 = {
 			isa = PBXGroup;
 			children = (
+				A11304BD20C7E73F00746532 /* model */,
 				A1A1F03B20C7B44900C4CDE5 /* ColorSwitch */,
 				A1A1F05620C7B44900C4CDE5 /* ColorSwitchTests */,
 				A1A1F06120C7B44A00C4CDE5 /* ColorSwitchUITests */,
@@ -270,6 +284,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A11304C120C7E7C300746532 /* Circle.swift in Sources */,
+				A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */,
 				A1A1F04320C7B44900C4CDE5 /* GameScene.swift in Sources */,
 				A1A1F04520C7B44900C4CDE5 /* GameViewController.swift in Sources */,
 				A1A1F03D20C7B44900C4CDE5 /* AppDelegate.swift in Sources */,
