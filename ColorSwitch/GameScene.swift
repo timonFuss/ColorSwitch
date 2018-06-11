@@ -38,12 +38,37 @@ class GameScene: SKScene {
         
         setupPlayerAndObstacles()
         
+        physicsWorld.contactDelegate = self
+        
+    
+        //scoreLabel.position = CGPoint(x: -200, y: -200)
+        //scoreLabel.fontColor = .white
+        //scoreLabel.fontSize = 150
+        //scoreLabel.text = String(score)
+        //addChild(scoreLabel)
+    }
+    
+    func setupPlayerAndObstacles() {
+        addPlayer()
+        obstacles = Obstacles(radius: 100, center: self.center).create()
+        for obstacle in obstacles {
+            addChild(obstacle)
+        }
+        //addObstacle()
+    }
+    
+    func addPlayer () {
+        playerFigureNode = playerFigure.create(location: center)
+        setUpPhysicsBody()
+        addChild(playerFigureNode)
+    }
+    
+    func setUpPhysicsBody(){
         let playerBody = SKPhysicsBody(circleOfRadius: 5)
-        playerBody.mass = 1.5
         playerBody.categoryBitMask = PhysicsCategory.Player
         playerBody.collisionBitMask = 4
+        playerBody.affectedByGravity = false
         playerFigureNode.childNode(withName: "player")?.physicsBody = playerBody
-        
         
         let ledge = SKNode()
         ledge.position = CGPoint(x: size.width/2, y: 160)
@@ -53,104 +78,11 @@ class GameScene: SKScene {
         ledgeBody.categoryBitMask = PhysicsCategory.Edge
         ledge.physicsBody = ledgeBody
         addChild(ledge)
-        
-        physicsWorld.contactDelegate = self
-        
-    
-        scoreLabel.position = CGPoint(x: -200, y: -200)
-        scoreLabel.fontColor = .white
-        scoreLabel.fontSize = 150
-        scoreLabel.text = String(score)
-        //addChild(scoreLabel)
-        print(self.children.count)
-        print(self.children)
-    }
-    
-    func setupPlayerAndObstacles() {
-        addPlayer()
-        addObstacle()
-    }
-    
-    func addPlayer () {
-        playerFigureNode = playerFigure.create(location: center)
-        addChild(playerFigureNode)
-    }
-    
-    func addObstacle() {
-        addCircleObstacle()
-    }
-    
-    func addCircleObstacle() {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: -200))
-        path.addLine(to: CGPoint(x: 0, y: -180))
-        path.addArc(withCenter: CGPoint.zero,
-                    radius: 180,
-                    startAngle: CGFloat(3.0 * Double.pi/2),
-                    endAngle: CGFloat(0),
-                    clockwise: true)
-        path.addLine(to: CGPoint(x: 200, y: 0))
-        path.addArc(withCenter: CGPoint.zero,
-                    radius: 200,
-                    startAngle: CGFloat(0.0),
-                    endAngle: CGFloat(3.0 * Double.pi/2),
-                    clockwise: false)
-        
-        let obstacle = obstacleByDuplicatingPath(path, clockwise: true)
-        obstacles.append(obstacle)
-        obstacle.position = self.center
-        addChild(obstacle)
-        
-        let rotateAction = SKAction.rotate(byAngle: 2.0 * CGFloat(Double.pi), duration: 8.0)
-        let scaleAction = SKAction.scale(by: 0.1, duration: 5)
-        obstacle.run(SKAction.repeatForever(rotateAction))
-        obstacle.run(SKAction.repeatForever(scaleAction))
-    }
-    
-    func addSquareObstacle() {
-        let path = UIBezierPath(roundedRect: CGRect(x: -200, y: -200,
-                                                    width: 400, height: 40),
-                                cornerRadius: 20)
-        
-        let obstacle = obstacleByDuplicatingPath(path, clockwise: false)
-        obstacles.append(obstacle)
-        obstacle.position = CGPoint(x: size.width/2, y: obstacleSpacing * CGFloat(obstacles.count))
-        addChild(obstacle)
-        
-        let rotateAction = SKAction.rotate(byAngle: -2.0 * CGFloat(Double.pi), duration: 7.0)
-        obstacle.run(SKAction.repeatForever(rotateAction))
-    }
-    
-    func obstacleByDuplicatingPath(_ path: UIBezierPath, clockwise: Bool) -> SKNode {
-        let container = SKNode()
-        
-        var rotationFactor = CGFloat(Double.pi/2)
-        if !clockwise {
-            rotationFactor *= -1
-        }
-        
-        for i in 0...3 {
-            let section = SKShapeNode(path: path.cgPath)
-            section.fillColor = colors[i]
-            section.strokeColor = colors[i]
-            section.zRotation = rotationFactor * CGFloat(i);
-            
-            let sectionBody = SKPhysicsBody(polygonFrom: path.cgPath)
-            sectionBody.categoryBitMask = PhysicsCategory.Obstacle
-            sectionBody.collisionBitMask = 0
-            sectionBody.contactTestBitMask = PhysicsCategory.Player
-            sectionBody.affectedByGravity = false
-            section.physicsBody = sectionBody
-            
-            container.addChild(section)
-        }
-        print("Container",container.children)
-        return container
     }
     
     func dieAndRestart() {
         print("boom")
-        playerFigure.removeFromParent()
+        playerFigureNode.removeAllChildren()
         
         for node in obstacles {
             node.removeFromParent()
@@ -209,13 +141,20 @@ class GameScene: SKScene {
         for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
-    
     override func update(_ currentTime: TimeInterval) {
         if (touched){
-            print("Vorher:", playerFigure.playerBall.center)
             doAnimation(degree: self.angle)
             self.angle += 0.05
-            print("Nachher", playerFigure.playerBall.center)
+        }
+        //for schleife und alle elemente kleiner machen
+        for obstacle in obstacles {
+            
+        }
+    }
+    
+    func stop(){
+        for obstacle in obstacles {
+            obstacle.removeAllActions()
         }
     }
 }
@@ -231,4 +170,5 @@ extension GameScene: SKPhysicsContactDelegate {
         }
     }
 }
+
 

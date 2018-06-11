@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11304BE20C7E76B00746532 /* PlayerFigure.swift */; };
 		A11304C120C7E7C300746532 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11304C020C7E7C300746532 /* Circle.swift */; };
+		A18440E420CE746D0021D848 /* Obstacles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18440E320CE746D0021D848 /* Obstacles.swift */; };
 		A1A1F03D20C7B44900C4CDE5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1A1F03C20C7B44900C4CDE5 /* AppDelegate.swift */; };
 		A1A1F03F20C7B44900C4CDE5 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = A1A1F03E20C7B44900C4CDE5 /* GameScene.sks */; };
 		A1A1F04120C7B44900C4CDE5 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = A1A1F04020C7B44900C4CDE5 /* Actions.sks */; };
@@ -41,6 +42,7 @@
 /* Begin PBXFileReference section */
 		A11304BE20C7E76B00746532 /* PlayerFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFigure.swift; sourceTree = "<group>"; };
 		A11304C020C7E7C300746532 /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
+		A18440E320CE746D0021D848 /* Obstacles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obstacles.swift; sourceTree = "<group>"; };
 		A1A1F03920C7B44900C4CDE5 /* ColorSwitch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorSwitch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1A1F03C20C7B44900C4CDE5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1A1F03E20C7B44900C4CDE5 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 			children = (
 				A11304BE20C7E76B00746532 /* PlayerFigure.swift */,
 				A11304C020C7E7C300746532 /* Circle.swift */,
+				A18440E320CE746D0021D848 /* Obstacles.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A11304C120C7E7C300746532 /* Circle.swift in Sources */,
+				A18440E420CE746D0021D848 /* Obstacles.swift in Sources */,
 				A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */,
 				A1A1F04320C7B44900C4CDE5 /* GameScene.swift in Sources */,
 				A1A1F04520C7B44900C4CDE5 /* GameViewController.swift in Sources */,
@@ -455,7 +459,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q8H5NWL8GC;
 				INFOPLIST_FILE = ColorSwitch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tfuss001.ColorSwitch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -469,7 +475,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Q8H5NWL8GC;
 				INFOPLIST_FILE = ColorSwitch/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tfuss001.ColorSwitch;
 				PRODUCT_NAME = "$(TARGET_NAME)";

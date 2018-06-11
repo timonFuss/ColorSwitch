@@ -11,13 +11,6 @@ import SpriteKit
 import GameplayKit
 
 class Circle{
-    func setOwnScale() {
-        print("Hallo")
-    }
-    
-    func create2() -> SKShapeNode {
-        return SKShapeNode()
-    }
     
     var fill: Bool
     var radius: CGFloat
