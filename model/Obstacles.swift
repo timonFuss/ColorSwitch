@@ -9,16 +9,27 @@
 import Foundation
 import SpriteKit
 
-class Obstacles {
+class Obstacles: SKShapeNode {
     var obstacles: [SKNode] = []
     var center: CGPoint = CGPoint(x:0,y:0)
-    var radius: CGFloat = CGFloat(0)
+    
+    var radius: CGFloat {
+        didSet {
+            self.path = Obstacles.path().cgPath
+        }
+    }
     let obstacleSpacing: CGFloat = 800
     let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
     
     init(radius: CGFloat, center: CGPoint) {
         self.radius = radius
         self.center = center
+        super.init()
+        self.path = Obstacles.path().cgPath
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func create() -> [SKNode] {
@@ -33,7 +44,7 @@ class Obstacles {
     }
     
     //returns a SKNode
-    func obstacleByDuplicatingPath(_ path: UIBezierPath, clockwise: Bool) -> SKNode {
+    func obstacleByDuplicatingPath(_ path: CGPath, clockwise: Bool) -> SKNode {
         //let container = SizeableCircle(radius: 50, position: self.center)
         let container = SKNode()
         
@@ -43,12 +54,12 @@ class Obstacles {
         }
         
         for i in 0...3 {
-            let section = SKShapeNode(path: path.cgPath)
+            let section = SKShapeNode(path: path)
             section.fillColor = colors[i]
             section.strokeColor = colors[i]
             section.zRotation = rotationFactor * CGFloat(i);
             
-            let sectionBody = SKPhysicsBody(polygonFrom: path.cgPath)
+            let sectionBody = SKPhysicsBody(polygonFrom: path)
             sectionBody.categoryBitMask = PhysicsCategory.Obstacle
             sectionBody.collisionBitMask = 0
             sectionBody.contactTestBitMask = PhysicsCategory.Player
@@ -61,6 +72,20 @@ class Obstacles {
     }
     
     func addCircleObstacle() {
+        
+        let obstacle = obstacleByDuplicatingPath(self.path!, clockwise: true)
+        obstacles.append(obstacle)
+        obstacle.position = self.center
+        //TODO
+        //addChild(obstacle)
+        
+        let rotateAction = SKAction.rotate(byAngle: 2.0 * CGFloat(Double.pi), duration: 8.0)
+        let scaleAction = SKAction.scale(by: 0.1, duration: 5)
+        obstacle.run(SKAction.repeatForever(rotateAction))
+        obstacle.run(SKAction.repeatForever(scaleAction))
+    }
+    
+    class func path() -> UIBezierPath {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: -200))
         path.addLine(to: CGPoint(x: 0, y: -180))
@@ -75,26 +100,14 @@ class Obstacles {
                     startAngle: CGFloat(0.0),
                     endAngle: CGFloat(3.0 * Double.pi/2),
                     clockwise: false)
-        
-        let obstacle = obstacleByDuplicatingPath(path, clockwise: true)
-        obstacles.append(obstacle)
-        obstacle.position = self.center
-        //TODO
-        //addChild(obstacle)
-        
-        let rotateAction = SKAction.rotate(byAngle: 2.0 * CGFloat(Double.pi), duration: 8.0)
-        let scaleAction = SKAction.scale(by: 0.1, duration: 5)
-        obstacle.run(SKAction.repeatForever(rotateAction))
-        obstacle.run(SKAction.repeatForever(scaleAction))
+        return path
     }
     
     func addSquareObstacle() {
-        let path = UIBezierPath(roundedRect: CGRect(x: -200, y: -200,
-                                                    width: 400, height: 40),
-                                cornerRadius: 20)
+        let path = UIBezierPath(roundedRect: CGRect(x: -200, y: -200, width: 400, height: 40), cornerRadius: 20)
         
         //SKNode zuweisen
-        let obstacle = obstacleByDuplicatingPath(path, clockwise: false)
+        let obstacle = obstacleByDuplicatingPath(path.cgPath, clockwise: false)
         obstacles.append(obstacle)
         
         

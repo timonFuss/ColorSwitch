@@ -39,7 +39,6 @@ class GameScene: SKScene {
         setupPlayerAndObstacles()
         
         physicsWorld.contactDelegate = self
-        
     
         //scoreLabel.position = CGPoint(x: -200, y: -200)
         //scoreLabel.fontColor = .white
@@ -147,9 +146,7 @@ class GameScene: SKScene {
             self.angle += 0.05
         }
         //for schleife und alle elemente kleiner machen
-        for obstacle in obstacles {
-            
-        }
+        
     }
     
     func stop(){
