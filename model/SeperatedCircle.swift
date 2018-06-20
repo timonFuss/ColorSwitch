@@ -32,7 +32,7 @@ class SeperatedCircle: Element {
     func create() -> SKShapeNode{
         let angle = CGFloat(Double.pi/2)
         
-        for i in 0...0{
+        for i in 0...3{
             let start = CGFloat(3.0 * Double.pi/2) + (CGFloat(i) * angle)
             let end = CGFloat(0) + (CGFloat(i) * angle)
             
@@ -52,10 +52,13 @@ class SeperatedCircle: Element {
             self.rotationAngle = 0
         }
         self.radius -= 0.25
-        self.segments.removeAll()
-        self.circle.removeAllChildren()
-        let test: SKShapeNode = self.create()
-        return test
+        
+        segments.removeAll()
+        
+        for segment in segments {
+            segment.drawPath(degree: self.rotationAngle)
+        }
+        return self.circle
     }
     
     func create(location: CGPoint) -> SKNode {

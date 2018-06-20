@@ -165,7 +165,7 @@ class GameScene: SKScene {
             self.angle += 0.05
         }
         
-        print(self.children.count)
+        //print(self.children.count)
         
         //TODO UM ROTATION KÜMMERN
         //for schleife und alle elemente kleiner machen
