@@ -19,7 +19,7 @@ class Circle{
     var sColor: SKColor
     var ball: SKShapeNode
     
-    init(node: SKNode, location: CGPoint, fill: Bool, fillColor: SKColor, strokeColor: SKColor, radius: CGFloat) {
+    init(location: CGPoint, fill: Bool, fillColor: SKColor, strokeColor: SKColor, radius: CGFloat) {
         self.center = location
         self.fColor = fillColor
         self.sColor = strokeColor
@@ -43,6 +43,10 @@ class Circle{
         }
         
         return self.ball
+    }
+    
+    func doAnimation(oldAngle: CGFloat) -> SKShapeNode {
+        return SKShapeNode()
     }
 }
 

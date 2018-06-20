@@ -9,8 +9,7 @@
 import Foundation
 import SpriteKit
 
-class PlayerFigure: SKNode {
-    
+class PlayerFigure: Element {
     let innerCircleRadius: CGFloat = 15
     let playerBallRadius: CGFloat = 5
     
@@ -24,8 +23,8 @@ class PlayerFigure: SKNode {
     
     func create(location: CGPoint) -> SKNode {
         let player = SKNode()
-        innerCircle = Circle(node: self, location: location, fill: false, fillColor: SKColor.red, strokeColor: SKColor.red, radius: innerCircleRadius)
-        playerBall = Circle(node: self, location: CGPoint(x:location.x,y:location.y + (innerCircleRadius + playerBallRadius)), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
+        innerCircle = Circle(location: location, fill: false, fillColor: SKColor.red, strokeColor: SKColor.red, radius: innerCircleRadius)
+        playerBall = Circle(location: CGPoint(x:location.x,y:location.y + (innerCircleRadius + playerBallRadius)), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
         let circle = innerCircle.create()
         circle.name = "inner"
         let ballPlayer = playerBall.create()
@@ -33,6 +32,15 @@ class PlayerFigure: SKNode {
         player.addChild(circle)
         player.addChild(ballPlayer)
         return player
+    }
+    func doAnimation(oldAngle: CGFloat) -> SKShapeNode {
+        return SKShapeNode()
+    }
+    func create() -> SKShapeNode {
+        return SKShapeNode()
+    }
+    func isActive() -> Bool {
+        return true
     }
 }
 

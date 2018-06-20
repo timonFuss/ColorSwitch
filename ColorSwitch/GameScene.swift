@@ -22,44 +22,61 @@ class GameScene: SKScene {
     
     let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
     let obstacleSpacing: CGFloat = 800
+    
     var angle: CGFloat = CGFloat(Double.pi * 1/2)
     var location: CGPoint = CGPoint.zero
     var touched: Bool = false
     var playerFigure = PlayerFigure()
     var obstacles: [SKNode] = []
+    var elementList: [SKNode] = []
     var center: CGPoint = CGPoint(x:0,y:0)
     var playerFigureNode: SKNode = SKNode()
+    var factory: ElementFactory?
+    
+    var sepCircle: Element? = nil
+    var sepCircleNode: SKShapeNode? = nil
+    var i: CGFloat = CGFloat(0)
     
     let scoreLabel = SKLabelNode()
     var score = 0
     
     override func didMove(to view: SKView) {
         center = CGPoint(x: view.frame.width/2, y: view.frame.height/2)
+        factory = ElementFactory.getInstance()
         
         setupPlayerAndObstacles()
         
         physicsWorld.contactDelegate = self
     
-        //scoreLabel.position = CGPoint(x: -200, y: -200)
-        //scoreLabel.fontColor = .white
-        //scoreLabel.fontSize = 150
-        //scoreLabel.text = String(score)
-        //addChild(scoreLabel)
+        addPointLabel()
     }
     
     func setupPlayerAndObstacles() {
-        addPlayer()
-        obstacles = Obstacles(radius: 100, center: self.center).create()
-        for obstacle in obstacles {
-            addChild(obstacle)
-        }
-        //addObstacle()
+        addPlayer(factory: self.factory!)
+        addElements()
+        
+        //adds every second Elements
+        /*run(SKAction.repeatForever(
+            SKAction.sequence([
+                SKAction.run(addElements),
+                SKAction.wait(forDuration: 1.0)
+                ])
+        ))*/
     }
     
-    func addPlayer () {
-        playerFigureNode = playerFigure.create(location: center)
+    func addPlayer (factory: ElementFactory) {
+        let playerFigure = factory.getElement(sort: Sort.PLAYER)
+        playerFigureNode = playerFigure.create(location: self.center)
         setUpPhysicsBody()
+        elementList.append(playerFigureNode)
         addChild(playerFigureNode)
+    }
+    
+    func addElements(){
+        self.sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE)
+        self.sepCircleNode = sepCircle?.create()
+        elementList.append(sepCircleNode!)
+        addChild(sepCircleNode!)
     }
     
     func setUpPhysicsBody(){
@@ -80,8 +97,10 @@ class GameScene: SKScene {
     }
     
     func dieAndRestart() {
-        print("boom")
+        //Removes all Elements from elementList and from Gamescene
+        deleteElementList()
         playerFigureNode.removeAllChildren()
+        sepCircleNode?.removeAllChildren()
         
         for node in obstacles {
             node.removeFromParent()
@@ -145,14 +164,40 @@ class GameScene: SKScene {
             doAnimation(degree: self.angle)
             self.angle += 0.05
         }
+        
+        print(self.children.count)
+        
+        //TODO UM ROTATION KÜMMERN
         //for schleife und alle elemente kleiner machen
         
+        if sepCircle!.isActive() {
+            sepCircleNode?.removeFromParent()
+            sepCircleNode = SKShapeNode()
+            sepCircleNode = sepCircle?.doAnimation(oldAngle: self.i)
+            addChild(sepCircleNode!)
+            i += 1
+        }
     }
     
     func stop(){
         for obstacle in obstacles {
             obstacle.removeAllActions()
         }
+    }
+    
+    func deleteElementList() {
+        for element in elementList {
+            element.removeFromParent()
+        }
+        elementList.removeAll()
+    }
+    
+    func addPointLabel() {
+        scoreLabel.position = CGPoint(x: 50, y: 25)
+        scoreLabel.fontColor = .white
+        scoreLabel.fontSize = 30
+        scoreLabel.text = String(score)
+        addChild(scoreLabel)
     }
 }
 

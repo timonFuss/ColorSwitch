@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import SpriteKit
+
+protocol Element {
+    func create(location: CGPoint) -> SKNode
+    func doAnimation(oldAngle: CGFloat) -> SKShapeNode
+    func create() -> SKShapeNode
+    func isActive() -> Bool
+}

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A112C67E20D1092F00D7AACC /* ElemetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C67D20D1092F00D7AACC /* ElemetFactory.swift */; };
+		A112C68020D10B5700D7AACC /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C67F20D10B5700D7AACC /* Sort.swift */; };
+		A112C68220D10C9800D7AACC /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C68120D10C9800D7AACC /* Element.swift */; };
+		A112C68420D1143000D7AACC /* SeperatedCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C68320D1143000D7AACC /* SeperatedCircle.swift */; };
+		A112C68620D1145500D7AACC /* CircleSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C68520D1145500D7AACC /* CircleSegment.swift */; };
 		A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11304BE20C7E76B00746532 /* PlayerFigure.swift */; };
 		A11304C120C7E7C300746532 /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A11304C020C7E7C300746532 /* Circle.swift */; };
 		A18440E420CE746D0021D848 /* Obstacles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A18440E320CE746D0021D848 /* Obstacles.swift */; };
@@ -40,6 +45,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A112C67D20D1092F00D7AACC /* ElemetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElemetFactory.swift; sourceTree = "<group>"; };
+		A112C67F20D10B5700D7AACC /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
+		A112C68120D10C9800D7AACC /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		A112C68320D1143000D7AACC /* SeperatedCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperatedCircle.swift; sourceTree = "<group>"; };
+		A112C68520D1145500D7AACC /* CircleSegment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleSegment.swift; sourceTree = "<group>"; };
 		A11304BE20C7E76B00746532 /* PlayerFigure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerFigure.swift; sourceTree = "<group>"; };
 		A11304C020C7E7C300746532 /* Circle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		A18440E320CE746D0021D848 /* Obstacles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obstacles.swift; sourceTree = "<group>"; };
@@ -92,6 +102,11 @@
 				A11304BE20C7E76B00746532 /* PlayerFigure.swift */,
 				A11304C020C7E7C300746532 /* Circle.swift */,
 				A18440E320CE746D0021D848 /* Obstacles.swift */,
+				A112C67D20D1092F00D7AACC /* ElemetFactory.swift */,
+				A112C67F20D10B5700D7AACC /* Sort.swift */,
+				A112C68120D10C9800D7AACC /* Element.swift */,
+				A112C68320D1143000D7AACC /* SeperatedCircle.swift */,
+				A112C68520D1145500D7AACC /* CircleSegment.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -288,11 +303,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A11304C120C7E7C300746532 /* Circle.swift in Sources */,
+				A112C68620D1145500D7AACC /* CircleSegment.swift in Sources */,
 				A18440E420CE746D0021D848 /* Obstacles.swift in Sources */,
+				A112C68220D10C9800D7AACC /* Element.swift in Sources */,
+				A112C67E20D1092F00D7AACC /* ElemetFactory.swift in Sources */,
 				A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */,
 				A1A1F04320C7B44900C4CDE5 /* GameScene.swift in Sources */,
+				A112C68020D10B5700D7AACC /* Sort.swift in Sources */,
 				A1A1F04520C7B44900C4CDE5 /* GameViewController.swift in Sources */,
 				A1A1F03D20C7B44900C4CDE5 /* AppDelegate.swift in Sources */,
+				A112C68420D1143000D7AACC /* SeperatedCircle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
