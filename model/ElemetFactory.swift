@@ -27,7 +27,7 @@ class ElementFactory {
         if (sort == Sort.PLAYER) {
             return PlayerFigure()
         }else if (sort == Sort.SEPERATEDCIRCLE){
-            //TODO VARIABLEN AUSLAGERN
+
             return SeperatedCircle(amountSegments: 4, center: center, radius: CGFloat(450), gapSize: CGFloat(0.008), lineWidth: CGFloat(100))
         }
         /*else if (sort == Sort.SQUARE){

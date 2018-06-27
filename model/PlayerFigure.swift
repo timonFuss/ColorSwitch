@@ -10,57 +10,54 @@ import Foundation
 import SpriteKit
 
 class PlayerFigure: Element {
-    func getBool() -> Bool {
-        return true
-    }
-    
-    func updateCircle() -> SKShapeNode {
-        return SKShapeNode()
-    }
+
     
     let innerCircleRadius: CGFloat = 25
     let playerBallRadius: CGFloat = 7.5
 
     var innerCircle: Circle!
-    var playerBall: Circle!
-    var player = SKNode()
+    var playerBallCircle: Circle!
     
-    var ballPlayer = SKShapeNode()
-    var circle = SKShapeNode()
+    var player = SKNode()
+    var playerBallShape = SKShapeNode()
+    var innerCircleShape = SKShapeNode()
     
 
-    func create(location: CGPoint, ballLocation: CGPoint, initialSet: Bool) -> SKNode {
-        //let player = SKNode()
+    func create(location: CGPoint, ballLocation: CGPoint) -> SKNode {
         innerCircle = Circle(location: location, fill: false, fillColor: SKColor.red, strokeColor: SKColor.red, radius: innerCircleRadius)
         
-        if(initialSet){
-            playerBall = Circle(location: CGPoint(x:ballLocation.x,y:ballLocation.y + (innerCircleRadius + playerBallRadius)+3), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
-        }else{
-            playerBall = Circle(location: CGPoint(x:ballLocation.x,y:ballLocation.y), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
-        }
-        
+        playerBallCircle = Circle(location: CGPoint(x:ballLocation.x,y:ballLocation.y + (innerCircleRadius + playerBallRadius)+3), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
 
-        circle = innerCircle.create()
-        circle.name = "inner"
+
+        innerCircleShape = innerCircle.create()
+        innerCircleShape.name = "inner"
         
-        playerBall.ball.zPosition = 0.5
-        ballPlayer = playerBall.create()
+        playerBallCircle.ball.zPosition = 0.5
+        playerBallShape = playerBallCircle.create()
         
-        ballPlayer.zPosition = 0.5
-        ballPlayer.name = "player"
-        player.addChild(circle)
-        player.addChild(ballPlayer)
+        playerBallShape.zPosition = 0.5
+        playerBallShape.name = "player"
+        player.addChild(innerCircleShape)
+        player.addChild(playerBallShape)
 
         return player
     }
     
     func updatePlayerFigure(locationPlayerBall: CGPoint) -> SKNode{
-        self.playerBall.center = locationPlayerBall
-        self.ballPlayer = self.playerBall.updateCirclePosition(center: locationPlayerBall)
+        self.playerBallCircle.center = locationPlayerBall
+        self.playerBallShape = self.playerBallCircle.updateCirclePosition(center: locationPlayerBall)
         player.removeAllChildren()
-        player.addChild(ballPlayer)
-        player.addChild(circle)
+        player.addChild(playerBallShape)
+        player.addChild(innerCircleShape)
         return self.player
+    }
+    
+    func isFirstCreation() -> Bool {
+        return true
+    }
+    
+    func updateCircle() -> SKShapeNode {
+        return SKShapeNode()
     }
     
     func doAnimation() -> SKShapeNode {

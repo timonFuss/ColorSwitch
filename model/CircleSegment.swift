@@ -57,22 +57,6 @@ class CircleSegment{
  
     }
     
-    func calculatePoints(degree: CGFloat) {
-        self.startPosition = rotation(outerPoint: self.startPosition, degree: degree, factor: 0)
-        self.firstPoint = rotation(outerPoint: self.firstPoint, degree: degree, factor: 0)
-        self.lastPoint = rotation(outerPoint: self.lastPoint, degree: degree, factor: 0)
-    }
-    
-    func rotation(outerPoint: CGPoint, degree: CGFloat, factor: CGFloat) -> CGPoint{
-        let pX = (outerPoint.x - self.center.x) * factor
-        let pY = (outerPoint.y - self.center.y) * factor
-        var x = sqrt((pX * pX) + (pY * pY)) * cos(degree)
-        var y = sqrt((pX * pX) + (pY * pY)) * sin(degree)
-        x = x + self.center.x
-        y = y + self.center.y
-        return CGPoint(x: x, y: y)
-    }
-    
     func create() -> SKShapeNode{
         return self.segment
     }
@@ -87,16 +71,12 @@ class CircleSegment{
     
     private func generatePath() -> UIBezierPath{
         let path = UIBezierPath()
-        //path.move(to: self.startPosition)
-        //path.addLine(to: self.firstLine)
       
         path.addArc(withCenter: self.center,
                     radius: self.radius,
                     startAngle: self.startAngle,
                     endAngle: self.endAngle,
                     clockwise: true)
- 
-        //path.addLine(to: self.nextLine)
 
         path.addArc(withCenter: self.center,
                     radius: self.radius + self.constant,
@@ -123,8 +103,7 @@ class CircleSegment{
         }else{
             self.endAngle = 0.0
         }
-        
-        //self.setPathPoints()
+
         
         let path = self.generatePath()
 
@@ -141,10 +120,4 @@ class CircleSegment{
 
         return self.segment
     }
-    
-    /*private func setPathPoints(){
-        self.startPosition = self.calculatePoint(position: self.center, degree: self.startAngle)
-        self.firstLine = self.calculatePoint(position: CGPoint(x: self.center.x * 2, y: self.center.y * 2), degree: self.startAngle)
-        self.nextLine = self.calculatePoint(position: self.center, degree: self.endAngle)
-    }*/
 }

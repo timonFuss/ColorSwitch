@@ -9,6 +9,7 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
+
 struct PhysicsCategory {
      static let Player: UInt32 = 1
      static let Obstacle: UInt32 = 2
@@ -17,78 +18,53 @@ struct PhysicsCategory {
 
 class GameScene: SKScene {
      
-     private var label : SKLabelNode?
-     private var spinnyNode : SKShapeNode?
-     
+     //Objectvariables
      let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
-     let obstacleSpacing: CGFloat = 800
-     
-     var angle: CGFloat = CGFloat(Double.pi * 1/2)
-     var location: CGPoint = CGPoint.zero
-     var touched: Bool = false
      var playerFigure = PlayerFigure()
      var obstacles: [SKNode] = []
      var elementList: [SKNode] = []
      var circleList: [Element] = []
-     var circleShapeNodeList: [SKShapeNode] = []
-     
-     
-     var center: CGPoint = CGPoint(x:0,y:0)
      var playerFigureNode: SKNode = SKNode()
      var factory: ElementFactory?
      
-     //var sepCircle: Element? = nil
-     //var sepCircleNode: SKShapeNode? = nil
-     var i: CGFloat = CGFloat(0)
-     
-     let scoreLabel = SKLabelNode()
-     var score = 0
-     
+     //MotionVariables
      var motionManager: CMMotionManager!
-     var stopLocation: CGPoint = CGPoint.zero
-     var newLocation: CGPoint = CGPoint.zero
+     var touchLocation: CGPoint = CGPoint.zero
+     var touched: Bool = false
      var touchStartLocation: CGPoint = CGPoint.zero
      var touchEndLocation: CGPoint = CGPoint.zero
-     var isJumping: Bool = false
-     var lastY: Double = 0.0
-     var lastX: Double = 0.0
-     var initialSet: Bool = true
+     var phoneTendInYAxis: Double = 0.0
+     
+     //InformationVariables
+     var angle: CGFloat = CGFloat(Double.pi * 1/2)
+     var screenCenter: CGPoint = CGPoint.zero
+     let scoreLabel = SKLabelNode()
+     var score = 0
+     var newLocation: CGPoint = CGPoint.zero
+     
+     //Jumpvariables
+     var actualJumpLocation: CGPoint = CGPoint.zero
+     var preJumpPosition: CGPoint = CGPoint.zero
+     var jumpAmountMax: CGFloat = 0
+     var jumpAmountActual: CGFloat = 0
      var jumpEndPosition: CGPoint = CGPoint.zero
      var jumpanimationStarted: Bool = false
-     
-     var listIndex = 0
-     
-     var preJumpPosition: CGPoint = CGPoint.zero
-     
-     enum Environment {
-          case development
-          case production
-     }
-     
-     let environment: Environment = .production
+     var isJumping: Bool = false
      
      override func didMove(to view: SKView) {
-          self.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2)
-          self.newLocation = self.center
+          self.screenCenter = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2)
+          self.newLocation = self.screenCenter
           factory = ElementFactory.getInstance()
-          
-          //addChild(playerFigure.create(location: self.center, ballLocation: self.center, initialSet: self.initialSet))
-          
-          //self.initialSet = !self.initialSet
+
           setupPlayerAndObstacles()
-          
           
           physicsWorld.contactDelegate = self
           
           addPointLabel()
-          self.stopLocation = self.center
           motionManager = CMMotionManager()
           motionManager.startAccelerometerUpdates()
           backgroundColor = SKColor.black
      }
-     
-     
-     
      
      func setupPlayerAndObstacles() {
           addPlayer(factory: self.factory!)
@@ -98,28 +74,26 @@ class GameScene: SKScene {
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),
-                    SKAction.wait(forDuration: 0.5)
+                    SKAction.wait(forDuration: 1.5)
                     ])
           ), withKey: "Creator")
      }
      
      func addPlayer (factory: ElementFactory) {
-          playerFigure = factory.getElement(sort: Sort.PLAYER, center: self.center) as! PlayerFigure
-          playerFigureNode = playerFigure.create(location: self.center, ballLocation: self.center, initialSet: self.initialSet)
+          playerFigure = factory.getElement(sort: Sort.PLAYER, center: self.screenCenter) as! PlayerFigure
+          playerFigureNode = playerFigure.create(location: self.screenCenter, ballLocation: self.screenCenter)
           setUpPhysicsBody()
           elementList.append(playerFigureNode)
           addChild(playerFigureNode)
      }
      
      func addElements(){
-          let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.center)
-          //var sepCircleNode = sepCircle?.create()
+          let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter)
           circleList.append(sepCircle!)
-          //addChild(sepCircleNode!)
      }
      
      func setUpPhysicsBody(){
-          let playerBody = SKPhysicsBody(circleOfRadius: self.playerFigure.playerBall.radius)
+          let playerBody = SKPhysicsBody(circleOfRadius: self.playerFigure.playerBallCircle.radius)
           playerBody.categoryBitMask = PhysicsCategory.Player
           playerBody.collisionBitMask = 4
           playerBody.affectedByGravity = false
@@ -134,7 +108,6 @@ class GameScene: SKScene {
           removeAction(forKey: "Creator")
           self.circleList.removeAll()
           playerFigureNode.removeAllChildren()
-          //sepCircleNode?.removeAllChildren()
           
           for node in obstacles {
                node.removeFromParent()
@@ -149,39 +122,17 @@ class GameScene: SKScene {
           setupPlayerAndObstacles()
      }
      
-     private func doAnimation(degree: CGFloat, position: CGPoint) -> CGPoint{
-          var x = sqrt((position.x * position.x) + (position.y * position.y)) * cos(degree)
-          var y = sqrt((position.x * position.x) + (position.y * position.y)) * sin(degree)
-          x = x + playerFigure.innerCircle.ball.position.x
-          y = y + playerFigure.innerCircle.ball.position.y
-          return CGPoint(x: x, y: y)
-     }
-     
-     func touchDown(atPoint pos : CGPoint) {
-          if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-               n.position = pos
-               n.strokeColor = SKColor.green
-               self.addChild(n)
-          }
-     }
-     
-     func touchMoved(toPoint pos : CGPoint) {
-     }
-     
-     func touchUp(atPoint pos : CGPoint) {
-     }
-     
      override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
           touched = true
           for touch in touches{
-               location = touch.location(in: self)
+               touchLocation = touch.location(in: self)
                self.touchStartLocation = touch.location(in: self)
           }
      }
      
      override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
           for touch in touches{
-               location = touch.location(in: self)
+               touchLocation = touch.location(in: self)
           }
      }
      
@@ -190,37 +141,26 @@ class GameScene: SKScene {
                self.touchEndLocation = touch.location(in: self)
           }
           
-          let swipeDistance = sqrt(((self.touchEndLocation.x-self.touchStartLocation.x) * (self.touchEndLocation.x-self.touchStartLocation.x)) + ((self.touchEndLocation.y-self.touchStartLocation.y) * (self.touchEndLocation.y-self.touchStartLocation.y)))
+          
+          let swipeDistance = calculateAmount(firstPoint: self.touchStartLocation, secondPoint: self.touchEndLocation)
           
           if swipeDistance > 20 && !self.isJumping{
-               self.isJumping = !self.isJumping
+               self.isJumping = true
           }
           
           touched = false
      }
-     
-     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-          for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-     }
-     
+
      override func update(_ currentTime: TimeInterval) {
           removeAllChildren()
-          
-          //print(self.children.count)
-          
-          
-          //TODO UM ROTATION KÜMMERN
-          //for schleife und alle elemente kleiner machen
-          
+          addChild(scoreLabel)
           self.playerFigureAnimations()
-          
           
           for element in circleList{
                if element.isActive(){
                     var shapeNode = SKShapeNode()
-                    if element.getBool() {
+                    if element.isFirstCreation() {
                          shapeNode = element.create()
-                         circleShapeNodeList.append(shapeNode)
                          addChild(shapeNode)
                     }else{
                          shapeNode = element.doAnimation()
@@ -245,94 +185,84 @@ class GameScene: SKScene {
      }
      
      func addPointLabel() {
-          scoreLabel.position = CGPoint(x: 50, y: 25)
+          scoreLabel.position = self.screenCenter
           scoreLabel.fontColor = .white
           scoreLabel.fontSize = 30
           scoreLabel.text = String(score)
-          addChild(scoreLabel)
      }
      
      private func playerFigureAnimations(){
-          let pos: CGPoint = CGPoint(x: playerFigure.playerBall.ball.position.x - playerFigure.innerCircle.ball.position.x, y: playerFigure.playerBall.ball.position.y - playerFigure.innerCircle.ball.position.y)
-          
-          
-          
-          //addChild(playerFigure.create(location: CGPoint(x: (view?.frame.size.width)! / 2.0, y: (view?.frame.size.height)! / 2.0), ballLocation: self.stopLocation, initialSet: self.initialSet))
-          //addChild(playerFigure.updatePlayerFigure(locationPlayerBall: doAnimation(degree: self.angle, position: pos))) //KANN VERMUTLICH RAUS
+          let pos: CGPoint = CGPoint(x: playerFigure.playerBallCircle.ball.position.x - playerFigure.innerCircle.ball.position.x, y: playerFigure.playerBallCircle.ball.position.y - playerFigure.innerCircle.ball.position.y)
+
           if let accelerometerData = motionManager.accelerometerData {
-               if self.lastY > 0.1{
-                    if self.lastY < 0.4{
-                         self.angle += 0.05
-                    }else {
-                         self.angle += 0.08
-                    }
-               }else if self.lastY < -0.1{
-                    if self.lastY > -0.4{
-                         self.angle -= 0.05
-                    }else{
-                         self.angle -= 0.08
-                    }
-               }
-               
-               //initialSet = false
-               
-               
                if !isJumping{
+                    if self.phoneTendInYAxis > 0.1{
+                         if self.phoneTendInYAxis < 0.4{
+                              self.angle += 0.05
+                         }else {
+                              self.angle += 0.08
+                         }
+                    }else if self.phoneTendInYAxis < -0.1{
+                         if self.phoneTendInYAxis > -0.4{
+                              self.angle -= 0.05
+                         }else{
+                              self.angle -= 0.08
+                         }
+                    }
                     
-                    self.jumpEndPosition = doAnimation(degree: self.angle, position: CGPoint(x: pos.x * 3, y: pos.y * 3))
-                    self.newLocation = doAnimation(degree: self.angle, position: pos )
+                    self.jumpEndPosition = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 3, y: pos.y * 3))
+                    self.newLocation = calculatePoint(degree: self.angle, position: pos )
                     
                     removeChildren(in: [self.playerFigureNode])
-                    //addChild(playerFigure.create(location: self.center, ballLocation: self.newLocation, initialSet: self.initialSet))
+
                     self.playerFigureNode = playerFigure.updatePlayerFigure(locationPlayerBall: self.newLocation)
                     addChild(self.playerFigureNode)
                }else{
-                    if(!jumpanimationStarted){
-                         
-                         var i: CGFloat = 1.1
-                         
-                         while(i <= 3.0){
-                              for ele in elementList{
-                                   ele.removeFromParent()
-                              }
-                              let newPosition = self.doAnimation(degree: self.angle, position: CGPoint(x: pos.x * i, y: pos.y*i))
-                              i += 0.001
-                              
-                              let obj = playerFigure.create(location: self.center, ballLocation: newPosition, initialSet: self.initialSet)
-                              elementList.append(obj)
-                              addChild(obj)
-                         }
-                         jumpanimationStarted = !jumpanimationStarted
-                         
-                         let animation = SKAction.move(to: self.jumpEndPosition, duration: 0.1)
-                         let kp = SKAction.scale(by: 2, duration: 5)
-                         let sequence = SKAction.sequence([animation, kp])
-                         
-                         //sepCircleNode?.run(sequence)
-                         playerFigure.playerBall.ball.run(sequence)
-                         self.isJumping = true
-                         
-                         //addChild(playerFigure.create(location: CGPoint(x: (view?.frame.size.width)! / 2.0, y: (view?.frame.size.height)! / 2.0), ballLocation: self.jumpEndPosition, initialSet: self.initialSet))
-                    }else {
-                         print("animation läuft")
+                    if self.preJumpPosition == CGPoint.zero{
+                         self.preJumpPosition = self.playerFigure.playerBallShape.position
+                         self.actualJumpLocation = self.preJumpPosition
+                         self.jumpAmountMax = self.calculateAmount(firstPoint: self.preJumpPosition, secondPoint: self.jumpEndPosition)
+                         self.jumpAmountActual = self.jumpAmountMax
+                         print(self.preJumpPosition)
                     }
                     
+                    
+                    
+                    removeChildren(in: [self.playerFigureNode])
+                    if self.jumpAmountActual > 5{
+                         self.actualJumpLocation = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 1.05, y: pos.y * 1.05))
+                         
+                         
+                         self.jumpAmountActual = calculateAmount(firstPoint: self.actualJumpLocation, secondPoint: self.jumpEndPosition)
+                    }else{
+                         self.actualJumpLocation = self.preJumpPosition
+                         self.preJumpPosition = CGPoint.zero
+                         self.isJumping = false
+                    }
+
+                    
+                    
+                    self.playerFigureNode = playerFigure.updatePlayerFigure(locationPlayerBall: self.actualJumpLocation)
+                    addChild(self.playerFigureNode)
                }
-               stopLocation = newLocation
-               
-               self.lastY = accelerometerData.acceleration.y
+               self.phoneTendInYAxis = accelerometerData.acceleration.y
           }
           
      }
+     private func calculatePoint(degree: CGFloat, position: CGPoint) -> CGPoint{
+          var x = sqrt((position.x * position.x) + (position.y * position.y)) * cos(degree)
+          var y = sqrt((position.x * position.x) + (position.y * position.y)) * sin(degree)
+          x = x + playerFigure.innerCircle.ball.position.x
+          y = y + playerFigure.innerCircle.ball.position.y
+          return CGPoint(x: x, y: y)
+     }
      
-     private func doJumpAnimation(){
-          let animation = SKAction.move(to: CGPoint.zero, duration: 10)
-          let kp = SKAction.scale(by: 2, duration: 5)
-          let sequence = SKAction.sequence([animation, kp])
-          
-          //sepCircleNode?.run(sequence)
-          
-          self.isJumping = !self.isJumping
+     private func calculateAmount(firstPoint: CGPoint, secondPoint: CGPoint) -> CGFloat{
+          return sqrt(((secondPoint.x - firstPoint.x) * (secondPoint.x - firstPoint.x)) + ((secondPoint.y - firstPoint.y) * (secondPoint.y - firstPoint.y)))
+     }
+     func addScore(){
+          self.score += 10
+          self.scoreLabel.text = String(self.score)
      }
 }
 
@@ -343,6 +273,9 @@ extension GameScene: SKPhysicsContactDelegate {
           if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
                if nodeA.fillColor != nodeB.fillColor {
                     dieAndRestart()
+               }else{
+                    //Wenn farbe gleich -> Kreis zernichten!
+                    addScore()
                }
           }
      }

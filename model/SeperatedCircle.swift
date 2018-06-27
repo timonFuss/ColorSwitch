@@ -11,6 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class SeperatedCircle: Element {
+    
     let amountSegments: Int
     var center: CGPoint
     let gapSize: CGFloat
@@ -47,7 +48,7 @@ class SeperatedCircle: Element {
     }
     
     func doAnimation() -> SKShapeNode {        
-        self.radius -= 3
+        self.radius -= 2
         self.circle.removeAllChildren()
 
         for segment in self.segments{
@@ -56,7 +57,7 @@ class SeperatedCircle: Element {
         return self.circle
     }
     
-    func create(location: CGPoint, ballLocation: CGPoint, initialSet: Bool) -> SKNode {
+    func create(location: CGPoint, ballLocation: CGPoint) -> SKNode {
         return SKNode()
     }
     
@@ -71,7 +72,7 @@ class SeperatedCircle: Element {
         return false
     }
     
-    func getBool() -> Bool{
+    func isFirstCreation() -> Bool{
         return self.firstCreation
     }
 }

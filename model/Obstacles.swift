@@ -84,7 +84,7 @@ class Obstacles: SKShapeNode {
         obstacle.run(SKAction.repeatForever(rotateAction))
         obstacle.run(SKAction.repeatForever(scaleAction))
     }
-    
+
     class func path() -> UIBezierPath {
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0, y: -200))
@@ -102,7 +102,7 @@ class Obstacles: SKShapeNode {
                     clockwise: false)
         return path
     }
-    
+ 
     func addSquareObstacle() {
         let path = UIBezierPath(roundedRect: CGRect(x: -200, y: -200, width: 400, height: 40), cornerRadius: 20)
         

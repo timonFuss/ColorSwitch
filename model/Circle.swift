@@ -30,9 +30,9 @@ class Circle{
     
     
     func create() -> SKShapeNode{
-        let bla: SKShapeNode = SKShapeNode(circleOfRadius: radius)
+        let circleShape: SKShapeNode = SKShapeNode(circleOfRadius: radius)
         
-        self.ball = bla
+        self.ball = circleShape
         self.ball.position = CGPoint(x:self.center.x , y:self.center.y)
         self.ball.strokeColor = self.sColor
         self.ball.glowWidth = 1.0
