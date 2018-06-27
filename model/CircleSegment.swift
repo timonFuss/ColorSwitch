@@ -24,8 +24,9 @@ class CircleSegment{
     var firstLine : CGPoint = CGPoint.zero
     var constant : CGFloat
     
-    init(color: SKColor, radius:CGFloat, center:CGPoint, startAngle: CGFloat, endAngle: CGFloat, gapSize: CGFloat, lineWidth: CGFloat, count: Int) {
-        
+    
+    init(color: SKColor, radius:CGFloat, center:CGPoint, startAngle: CGFloat, endAngle: CGFloat, gapSize: CGFloat, lineWidth: CGFloat) {
+     
         self.color = color
         self.radius = radius
         self.startAngle = startAngle
@@ -40,7 +41,10 @@ class CircleSegment{
         self.startPosition = CGPoint.zero
         self.firstLine = CGPoint.zero
         self.nextLine = CGPoint.zero
-        
+        self.setPathPoints()
+
+
+        /*
         switch count {
             case 0:
                 //self.startPosition = self.rotation(outerPoint: CGPoint(x: self.center.x, y: self.center.y - self.radius), degree: CGFloat(-180))
@@ -66,10 +70,10 @@ class CircleSegment{
         default:
             break
         }
-        
+        */
+/*
         let path = UIBezierPath()
         path.move(to: self.startPosition)
-        print(self.startPosition)
         path.addLine(to: self.firstLine)
         path.addArc(withCenter: self.center,
                     radius: self.radius,
@@ -82,9 +86,9 @@ class CircleSegment{
                     startAngle: self.endAngle,
                     endAngle: self.startAngle,
                     clockwise: false)
+    */
         
-        
-        
+        let path = self.generatePath()
         self.segment = SKShapeNode(path: path.cgPath)
         
         //Collosion
@@ -97,6 +101,7 @@ class CircleSegment{
         
         self.segment.strokeColor = self.color
         self.segment.fillColor = self.color
+ 
     }
     
     func rotation(outerPoint: CGPoint, degree: CGFloat) -> CGPoint{
@@ -111,5 +116,76 @@ class CircleSegment{
     
     func create() -> SKShapeNode{
         return self.segment
+    }
+    
+    func calculatePoint(position: CGPoint, degree: CGFloat) -> CGPoint{
+        var x = sqrt((position.x * position.x) + (position.y * position.y)) * cos(degree)
+        var y = sqrt((position.x * position.x) + (position.y * position.y)) * sin(degree)
+        x = x + self.center.x
+        y = y + self.center.y
+        return CGPoint(x: x, y: y)
+    }
+    
+    private func generatePath() -> UIBezierPath{
+        let path = UIBezierPath()
+        //path.move(to: self.startPosition)
+        //path.addLine(to: self.firstLine)
+      
+        path.addArc(withCenter: self.center,
+                    radius: self.radius,
+                    startAngle: self.startAngle,
+                    endAngle: self.endAngle,
+                    clockwise: true)
+ 
+        //path.addLine(to: self.nextLine)
+
+        path.addArc(withCenter: self.center,
+                    radius: self.radius + self.constant,
+                    startAngle: self.endAngle,
+                    endAngle: self.startAngle,
+                    clockwise: false)
+        
+        
+        return path
+    }
+    
+    
+    func animateSegment(radius: CGFloat) -> SKShapeNode{
+        self.radius = radius
+
+        if self.startAngle < 360.0{
+            self.startAngle += 0.05
+        }else{
+           self.startAngle = 0.0
+        }
+        
+        if self.endAngle < 360.0{
+            self.endAngle += 0.05
+        }else{
+            self.endAngle = 0.0
+        }
+        
+        self.setPathPoints()
+        
+        let path = self.generatePath()
+
+        self.segment.path = path.cgPath
+        
+        //Collosion
+        let sectionBody = SKPhysicsBody(polygonFrom: path.cgPath)
+        sectionBody.categoryBitMask = PhysicsCategory.Obstacle
+        sectionBody.collisionBitMask = 0
+        sectionBody.contactTestBitMask = PhysicsCategory.Player
+        sectionBody.affectedByGravity = false
+
+        self.segment.physicsBody = sectionBody
+
+        return self.segment
+    }
+    
+    private func setPathPoints(){
+        self.startPosition = self.calculatePoint(position: self.center, degree: self.startAngle)
+        self.firstLine = self.calculatePoint(position: CGPoint(x: self.center.x * 2, y: self.center.y * 2), degree: self.startAngle)
+        self.nextLine = self.calculatePoint(position: self.center, degree: self.endAngle)
     }
 }

@@ -10,8 +10,10 @@ import Foundation
 import SpriteKit
 
 protocol Element {
-    func create(location: CGPoint) -> SKNode
-    func doAnimation(oldAngle: CGFloat) -> SKShapeNode
+    func create(location: CGPoint, ballLocation: CGPoint, initialSet: Bool) -> SKNode
+    func doAnimation() -> SKShapeNode
     func create() -> SKShapeNode
+    func create(location: CGPoint) -> SKNode
     func isActive() -> Bool
+    func getBool() -> Bool
 }

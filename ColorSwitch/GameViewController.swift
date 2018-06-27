@@ -27,7 +27,9 @@ class GameViewController: UIViewController {
             view.presentScene(scene)
         }
     }
-
+    
+    
+    
     override var shouldAutorotate: Bool {
         return true
     }

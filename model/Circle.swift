@@ -48,5 +48,11 @@ class Circle{
     func doAnimation(oldAngle: CGFloat) -> SKShapeNode {
         return SKShapeNode()
     }
+    
+    func updateCirclePosition(center: CGPoint) -> SKShapeNode{
+        self.center = center
+        self.ball.position = center
+        return self.ball
+    }
 }
 

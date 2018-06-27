@@ -15,11 +15,12 @@ class SeperatedCircle: Element {
     var center: CGPoint
     let gapSize: CGFloat
     let lineWidth: CGFloat
-    var rotationAngle: CGFloat = 0.0
+    var rotationAngle: CGFloat = CGFloat(Double.pi/2)
     var radius: CGFloat
     var segments: [CircleSegment] = []
     let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
     var circle: SKShapeNode = SKShapeNode()
+    var firstCreation: Bool = true
     
     init(amountSegments: Int, center: CGPoint, radius: CGFloat, gapSize: CGFloat, lineWidth: CGFloat) {
         self.amountSegments = amountSegments
@@ -30,32 +31,38 @@ class SeperatedCircle: Element {
     }
     
     func create() -> SKShapeNode{
-        let angle = CGFloat(Double.pi/2)
+        //let angle = CGFloat(Double.pi/2)
         
-        for i in 0...0{
-            let start = CGFloat(3.0 * Double.pi/2) + (CGFloat(i) * angle)
-            let end = CGFloat(0) + (CGFloat(i) * angle)
+        for i in 0...3{
+            let start = CGFloat(3.0 * Double.pi/2) + (CGFloat(i) * self.rotationAngle)
+            let end = CGFloat(0) + (CGFloat(i) * self.rotationAngle)
             
-            let circle = CircleSegment(color: colors[i], radius: self.radius, center: self.center, startAngle: start, endAngle: end, gapSize: 10, lineWidth: self.lineWidth, count: i)
+            let circle = CircleSegment(color: colors[i], radius: self.radius, center: self.center, startAngle: start, endAngle: end, gapSize: 10, lineWidth: self.lineWidth)
             
             self.segments.append(circle)
             self.circle.addChild(self.segments[i].create())
         }
+        self.firstCreation = false
         return self.circle
     }
     
-    func doAnimation(oldAngle: CGFloat) -> SKShapeNode {
-        self.rotationAngle = oldAngle
-        if self.rotationAngle <= CGFloat(360.0){
-            self.rotationAngle += 0.5
-        }else{
-            self.rotationAngle = 0
-        }
-        self.radius -= 0.25
-        self.segments.removeAll()
+    func doAnimation() -> SKShapeNode {        
+        self.radius -= 3
         self.circle.removeAllChildren()
-        let test: SKShapeNode = self.create()
-        return test
+
+        for segment in self.segments{
+            self.circle.addChild(segment.animateSegment(radius: self.radius))
+        }
+
+        //self.segments.removeAll()
+        //self.circle.removeAllChildren()
+        //let test: SKShapeNode = self.create()
+        //return test
+        return self.circle
+    }
+    
+    func create(location: CGPoint, ballLocation: CGPoint, initialSet: Bool) -> SKNode {
+        return SKNode()
     }
     
     func create(location: CGPoint) -> SKNode {
@@ -67,6 +74,10 @@ class SeperatedCircle: Element {
             return true
         }
         return false
+    }
+    
+    func getBool() -> Bool{
+        return self.firstCreation
     }
 }
 

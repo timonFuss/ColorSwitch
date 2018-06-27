@@ -29,13 +29,16 @@ class GameScene: SKScene {
     var playerFigure = PlayerFigure()
     var obstacles: [SKNode] = []
     var elementList: [SKNode] = []
-     var circleList: [Circle] = []
+     var circleList: [Element] = []
+     var circleShapeNodeList: [SKShapeNode] = []
+     
+     
     var center: CGPoint = CGPoint(x:0,y:0)
     var playerFigureNode: SKNode = SKNode()
     var factory: ElementFactory?
     
-    var sepCircle: Element? = nil
-    var sepCircleNode: SKShapeNode? = nil
+    //var sepCircle: Element? = nil
+    //var sepCircleNode: SKShapeNode? = nil
     var i: CGFloat = CGFloat(0)
     
     let scoreLabel = SKLabelNode()
@@ -53,13 +56,15 @@ class GameScene: SKScene {
     var jumpEndPosition: CGPoint = CGPoint.zero
      var jumpanimationStarted: Bool = false
      
+     var listIndex = 0
+     
     enum Environment {
         case development
         case production
     }
     
     let environment: Environment = .production
-    
+ 
     override func didMove(to view: SKView) {
         self.center = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2)
         factory = ElementFactory.getInstance()
@@ -76,25 +81,27 @@ class GameScene: SKScene {
         self.stopLocation = self.center
         motionManager = CMMotionManager()
         motionManager.startAccelerometerUpdates()
-        backgroundColor = SKColor.white
-        view.showsPhysics = true
+        backgroundColor = SKColor.black
     }
+     
+     
+
     
     func setupPlayerAndObstacles() {
         addPlayer(factory: self.factory!)
-        addElements()
         
         //adds every second Elements
-        /*run(SKAction.repeatForever(
-            SKAction.sequence([
-                SKAction.run(addElements),
-                SKAction.wait(forDuration: 1.0)
-                ])
-        ))*/
+
+     run(SKAction.repeatForever(
+          SKAction.sequence([
+               SKAction.run(addElements),
+               SKAction.wait(forDuration: 0.5)
+               ])
+     ), withKey: "Creator")
     }
     
     func addPlayer (factory: ElementFactory) {
-     playerFigure = factory.getElement(sort: Sort.PLAYER) as! PlayerFigure
+     playerFigure = factory.getElement(sort: Sort.PLAYER, center: self.center) as! PlayerFigure
         playerFigureNode = playerFigure.create(location: self.center, ballLocation: self.center, initialSet: self.initialSet)
         setUpPhysicsBody()
         elementList.append(playerFigureNode)
@@ -102,10 +109,10 @@ class GameScene: SKScene {
     }
     
     func addElements(){
-        self.sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE)
-        self.sepCircleNode = sepCircle?.create()
-        elementList.append(sepCircleNode!)
-        addChild(sepCircleNode!)
+     let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.center)
+        //var sepCircleNode = sepCircle?.create()
+          circleList.append(sepCircle!)
+        //addChild(sepCircleNode!)
     }
     
     func setUpPhysicsBody(){
@@ -120,8 +127,11 @@ class GameScene: SKScene {
     func dieAndRestart() {
         //Removes all Elements from elementList and from Gamescene
         deleteElementList()
+     removeAllChildren()
+     removeAction(forKey: "Creator")
+     self.circleList.removeAll()
         playerFigureNode.removeAllChildren()
-        sepCircleNode?.removeAllChildren()
+        //sepCircleNode?.removeAllChildren()
         
         for node in obstacles {
             node.removeFromParent()
@@ -131,7 +141,8 @@ class GameScene: SKScene {
         
         score = 0
         scoreLabel.text = String(score)
-        
+     
+     
         setupPlayerAndObstacles()
     }
     
@@ -164,7 +175,7 @@ class GameScene: SKScene {
             self.touchStartLocation = touch.location(in: self)
         }
      
-          self.angle += 5
+          //self.angle += 5
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -208,13 +219,30 @@ class GameScene: SKScene {
      
         //TODO UM ROTATION KÜMMERN
         //for schleife und alle elemente kleiner machen
-        
-        if sepCircle!.isActive() {
+     
+     for element in circleList{
+          if element.isActive(){
+               var shapeNode = SKShapeNode()
+               if element.getBool() {
+                    shapeNode = element.create()
+                    circleShapeNodeList.append(shapeNode)
+                    addChild(shapeNode)
+               }else{
+                    shapeNode = element.doAnimation()
+                    addChild(shapeNode)
+               }
+               
+          }
+     }
+     
+     
+     
+        /*if sepCircle!.isActive() {
             sepCircleNode?.removeFromParent()
             //sepCircleNode = SKShapeNode()
             sepCircleNode = sepCircle?.doAnimation()
             addChild(sepCircleNode!)
-        }
+        }*/
     }
     
     func stop(){
@@ -241,9 +269,10 @@ class GameScene: SKScene {
     private func playerFigureAnimations(){
                 let pos: CGPoint = CGPoint(x: playerFigure.playerBall.ball.position.x - playerFigure.innerCircle.ball.position.x, y: playerFigure.playerBall.ball.position.y - playerFigure.innerCircle.ball.position.y)
      
-        //addChild(playerFigure.create(location: CGPoint(x: (view?.frame.size.width)! / 2.0, y: (view?.frame.size.height)! / 2.0), ballLocation: self.stopLocation, initialSet: self.initialSet))
-          addChild(playerFigure.updatePlayerFigure(locationPlayerBall: doAnimation(degree: self.angle, position: pos))) //KANN VERMUTLICH RAUS
 
+     
+        //addChild(playerFigure.create(location: CGPoint(x: (view?.frame.size.width)! / 2.0, y: (view?.frame.size.height)! / 2.0), ballLocation: self.stopLocation, initialSet: self.initialSet))
+          //addChild(playerFigure.updatePlayerFigure(locationPlayerBall: doAnimation(degree: self.angle, position: pos))) //KANN VERMUTLICH RAUS
             if let accelerometerData = motionManager.accelerometerData {
                 if self.lastY > 0.1{
                     if self.lastY < 0.4{
@@ -267,9 +296,10 @@ class GameScene: SKScene {
                     self.jumpEndPosition = doAnimation(degree: self.angle, position: CGPoint(x: pos.x * 3, y: pos.y * 3))
                     self.newLocation = doAnimation(degree: self.angle, position: pos )
                     
-                    
+                    removeChildren(in: [self.playerFigureNode])
                     //addChild(playerFigure.create(location: self.center, ballLocation: self.newLocation, initialSet: self.initialSet))
-                    addChild(playerFigure.updatePlayerFigure(locationPlayerBall: self.newLocation))
+                    self.playerFigureNode = playerFigure.updatePlayerFigure(locationPlayerBall: self.newLocation)
+                    addChild(self.playerFigureNode)
                 }else{
                     if(!jumpanimationStarted){
                          
@@ -314,7 +344,7 @@ class GameScene: SKScene {
           let kp = SKAction.scale(by: 2, duration: 5)
           let sequence = SKAction.sequence([animation, kp])
           
-          sepCircleNode?.run(sequence)
+          //sepCircleNode?.run(sequence)
           
           self.isJumping = !self.isJumping
      }
