@@ -20,9 +20,12 @@ class CircleSegment{
     let lineWidth: CGFloat
     let gapSize: CGFloat
     var startPosition : CGPoint = CGPoint.zero
-    var nextLine : CGPoint = CGPoint.zero
-    var firstLine : CGPoint = CGPoint.zero
+    var lastPoint : CGPoint = CGPoint.zero
+    var firstPoint : CGPoint = CGPoint.zero
     var constant : CGFloat
+    var multifactor : CGFloat = 0.3
+    var firstSet: Bool = false
+    var path = UIBezierPath()
     
     
     init(color: SKColor, radius:CGFloat, center:CGPoint, startAngle: CGFloat, endAngle: CGFloat, gapSize: CGFloat, lineWidth: CGFloat) {
@@ -34,59 +37,9 @@ class CircleSegment{
         self.center = center
         self.gapSize = gapSize
         self.lineWidth = lineWidth
-        self.nextLine = CGPoint(x: 0, y: 0)
-        self.firstLine = CGPoint(x: 0, y: 0)
         self.startPosition = CGPoint(x: 0, y: 0)
         self.constant = 15
         self.startPosition = CGPoint.zero
-        self.firstLine = CGPoint.zero
-        self.nextLine = CGPoint.zero
-        self.setPathPoints()
-
-
-        /*
-        switch count {
-            case 0:
-                //self.startPosition = self.rotation(outerPoint: CGPoint(x: self.center.x, y: self.center.y - self.radius), degree: CGFloat(-180))
-                self.startPosition = CGPoint(x: self.center.x, y: self.center.y - self.radius)
-                self.firstLine = CGPoint(x: self.startPosition.x, y: self.startPosition.y - self.constant)
-                self.nextLine = CGPoint(x: self.center.x + (self.radius + self.constant), y: self.center.y)
-                break
-            case 1:
-                self.startPosition = CGPoint(x: self.center.x + self.radius, y: self.center.y)
-                self.firstLine = CGPoint(x: self.startPosition.x + self.constant, y: self.startPosition.y)
-                self.nextLine = CGPoint(x: self.center.x , y: self.center.y + (self.radius + self.constant))
-                break
-            case 2:
-                self.startPosition = CGPoint(x: self.center.x, y: self.center.y + self.radius)
-                self.firstLine = CGPoint(x: self.startPosition.x, y: self.startPosition.y + self.constant)
-                self.nextLine = CGPoint(x: self.center.x - (self.radius + self.constant), y: self.center.y)
-                break
-            case 3:
-                self.startPosition = CGPoint(x: self.center.x - self.radius, y: self.center.y)
-                self.firstLine = CGPoint(x: self.startPosition.x - self.constant, y: self.startPosition.y)
-                self.nextLine = CGPoint(x: self.center.x, y: self.center.y - (self.radius + self.constant))
-                break
-        default:
-            break
-        }
-        */
-/*
-        let path = UIBezierPath()
-        path.move(to: self.startPosition)
-        path.addLine(to: self.firstLine)
-        path.addArc(withCenter: self.center,
-                    radius: self.radius,
-                    startAngle: self.startAngle,
-                    endAngle: self.endAngle,
-                    clockwise: true)
-        path.addLine(to: self.nextLine)
-        path.addArc(withCenter: self.center,
-                    radius: self.radius + self.constant,
-                    startAngle: self.endAngle,
-                    endAngle: self.startAngle,
-                    clockwise: false)
-    */
         
         let path = self.generatePath()
         self.segment = SKShapeNode(path: path.cgPath)
@@ -104,9 +57,15 @@ class CircleSegment{
  
     }
     
-    func rotation(outerPoint: CGPoint, degree: CGFloat) -> CGPoint{
-        let pX = outerPoint.x - self.center.x
-        let pY = outerPoint.y - self.center.y
+    func calculatePoints(degree: CGFloat) {
+        self.startPosition = rotation(outerPoint: self.startPosition, degree: degree, factor: 0)
+        self.firstPoint = rotation(outerPoint: self.firstPoint, degree: degree, factor: 0)
+        self.lastPoint = rotation(outerPoint: self.lastPoint, degree: degree, factor: 0)
+    }
+    
+    func rotation(outerPoint: CGPoint, degree: CGFloat, factor: CGFloat) -> CGPoint{
+        let pX = (outerPoint.x - self.center.x) * factor
+        let pY = (outerPoint.y - self.center.y) * factor
         var x = sqrt((pX * pX) + (pY * pY)) * cos(degree)
         var y = sqrt((pX * pX) + (pY * pY)) * sin(degree)
         x = x + self.center.x
@@ -165,7 +124,7 @@ class CircleSegment{
             self.endAngle = 0.0
         }
         
-        self.setPathPoints()
+        //self.setPathPoints()
         
         let path = self.generatePath()
 
@@ -183,9 +142,9 @@ class CircleSegment{
         return self.segment
     }
     
-    private func setPathPoints(){
+    /*private func setPathPoints(){
         self.startPosition = self.calculatePoint(position: self.center, degree: self.startAngle)
         self.firstLine = self.calculatePoint(position: CGPoint(x: self.center.x * 2, y: self.center.y * 2), degree: self.startAngle)
         self.nextLine = self.calculatePoint(position: self.center, degree: self.endAngle)
-    }
+    }*/
 }

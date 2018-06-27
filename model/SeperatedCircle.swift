@@ -53,11 +53,6 @@ class SeperatedCircle: Element {
         for segment in self.segments{
             self.circle.addChild(segment.animateSegment(radius: self.radius))
         }
-
-        //self.segments.removeAll()
-        //self.circle.removeAllChildren()
-        //let test: SKShapeNode = self.create()
-        //return test
         return self.circle
     }
     

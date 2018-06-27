@@ -39,9 +39,7 @@ class PlayerFigure: Element {
             playerBall = Circle(location: CGPoint(x:ballLocation.x,y:ballLocation.y), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
         }
         
-        /*
-        playerBall = Circle(location: CGPoint(x:location.x,y:location.y + (innerCircleRadius + playerBallRadius)), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
-        */
+
         circle = innerCircle.create()
         circle.name = "inner"
         

@@ -203,22 +203,16 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+     removeAllChildren()
 
-        removeAllChildren()
-     
-     
-     
-     
-     
-        playerFigureAnimations()
-     
-     
-     
-     
-     
-     
+        //print(self.children.count)
+        
+
         //TODO UM ROTATION KÜMMERN
         //for schleife und alle elemente kleiner machen
+     
+     self.playerFigureAnimations()
+     
      
      for element in circleList{
           if element.isActive(){
@@ -234,15 +228,6 @@ class GameScene: SKScene {
                
           }
      }
-     
-     
-     
-        /*if sepCircle!.isActive() {
-            sepCircleNode?.removeFromParent()
-            //sepCircleNode = SKShapeNode()
-            sepCircleNode = sepCircle?.doAnimation()
-            addChild(sepCircleNode!)
-        }*/
     }
     
     func stop(){
