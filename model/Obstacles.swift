@@ -104,7 +104,7 @@ class Obstacles: SKShapeNode {
     }
  
     func addSquareObstacle() {
-        let path = UIBezierPath(roundedRect: CGRect(x: -200, y: -200, width: 400, height: 40), cornerRadius: 20)
+        let path = UIBezierPath(roundedRect: CGRect(x: self.center.x, y: self.center.y, width: 400, height: 40), cornerRadius: 20)
         
         //SKNode zuweisen
         let obstacle = obstacleByDuplicatingPath(path.cgPath, clockwise: false)
@@ -114,7 +114,7 @@ class Obstacles: SKShapeNode {
         obstacle.position = CGPoint(x: 380, y: obstacleSpacing * CGFloat(obstacles.count))
         
         //TODO
-        //addChild(obstacle)
+        addChild(obstacle)
         
         let rotateAction = SKAction.rotate(byAngle: -2.0 * CGFloat(Double.pi), duration: 7.0)
         obstacle.run(SKAction.repeatForever(rotateAction))

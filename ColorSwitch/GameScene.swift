@@ -70,7 +70,6 @@ class GameScene: SKScene {
           addPlayer(factory: self.factory!)
           
           //adds every second Elements
-          
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),

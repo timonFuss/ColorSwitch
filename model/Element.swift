@@ -9,6 +9,7 @@
 import Foundation
 import SpriteKit
 
+/// A Protocol to provide the functions that has to be implemented
 protocol Element {
     func create(location: CGPoint, ballLocation: CGPoint) -> SKNode
     func doAnimation() -> SKShapeNode

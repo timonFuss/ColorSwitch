@@ -9,13 +9,15 @@
 import Foundation
 import SpriteKit
 
+/// A Factory to create different Elements
 class ElementFactory {
     
     private static var instance: ElementFactory?
     
-    private init() {
-    }
     
+    /// ElementFactory as Singleton
+    ///
+    /// - Returns: the only instance of the Factory
     public static func getInstance() -> ElementFactory {
         if(instance == nil){
             instance = ElementFactory()
@@ -23,12 +25,18 @@ class ElementFactory {
         return instance!
     }
     
+    /// Factory Function to create an Element
+    ///
+    /// - Parameters:
+    ///   - sort: Enum that specifies the object
+    ///   - center: the Position where the Element should be created
+    /// - Returns: the Element that was created
     public func getElement(sort: Sort, center: CGPoint) -> Element {
         if (sort == Sort.PLAYER) {
             return PlayerFigure()
         }else if (sort == Sort.SEPERATEDCIRCLE){
 
-            return SeperatedCircle(amountSegments: 4, center: center, radius: CGFloat(450), gapSize: CGFloat(0.008), lineWidth: CGFloat(100))
+            return SeperatedCircle(amountSegments: 4, center: center, radius: CGFloat(450))
         }
         /*else if (sort == Sort.SQUARE){
             return Square()

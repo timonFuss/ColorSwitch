@@ -19,6 +19,14 @@ class Circle{
     var sColor: SKColor
     var ball: SKShapeNode
     
+    /// Initializes a Circle that is needed to create a PlayerFigure
+    ///
+    /// - Parameters:
+    ///   - location: where it should be placed
+    ///   - fill:
+    ///   - fillColor: Color to fill the Circle
+    ///   - strokeColor: Color to ink the border
+    ///   - radius: how big the Circle should be
     init(location: CGPoint, fill: Bool, fillColor: SKColor, strokeColor: SKColor, radius: CGFloat) {
         self.center = location
         self.fColor = fillColor
@@ -28,7 +36,9 @@ class Circle{
         self.ball = SKShapeNode(circleOfRadius: self.radius)
     }
     
-    
+    /// Creates the fitting SKShapeNode for the CircleElement
+    ///
+    /// - Returns: ShapeObject
     func create() -> SKShapeNode{
         let circleShape: SKShapeNode = SKShapeNode(circleOfRadius: radius)
         
@@ -49,6 +59,10 @@ class Circle{
         return SKShapeNode()
     }
     
+    /// Updates the position of the Circle when changed
+    ///
+    /// - Parameter center: of the Circle
+    /// - Returns: the updated SKShapeNode
     func updateCirclePosition(center: CGPoint) -> SKShapeNode{
         self.center = center
         self.ball.position = center
