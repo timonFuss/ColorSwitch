@@ -24,6 +24,7 @@ class SeperatedCircle: Element {
     var rotationAngle: CGFloat = CGFloat(Double.pi/2)
     var radius: CGFloat
     var firstCreation: Bool = true
+    var objectIsActive: Bool = true
     
     /// Initializes a Seperated Circle
     ///
@@ -87,10 +88,14 @@ class SeperatedCircle: Element {
     ///
     /// - Returns: if the Object is still active
     func isActive() -> Bool {
-        if self.radius > 15 {
-            return true
+        if self.radius < 15 {
+            self.objectIsActive = false
         }
-        return false
+        return self.objectIsActive
+    }
+    
+    func setObjectIsInactive(){
+        self.objectIsActive = false
     }
     
     func isFirstCreation() -> Bool{

@@ -18,6 +18,8 @@ struct PhysicsCategory {
 
 class GameScene: SKScene {
      
+     var collisionFlag: Bool = true
+     
      //Objectvariables
      let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
      var playerFigure = PlayerFigure()
@@ -73,7 +75,7 @@ class GameScene: SKScene {
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),
-                    SKAction.wait(forDuration: 2.5)
+                    SKAction.wait(forDuration: 1.5)
                     ])
           ), withKey: "Creator")
      }
@@ -151,6 +153,7 @@ class GameScene: SKScene {
      }
 
      override func update(_ currentTime: TimeInterval) {
+          print("gude")
           removeAllChildren()
           addChild(scoreLabel)
           self.playerFigureAnimations()
@@ -289,29 +292,23 @@ extension GameScene: SKPhysicsContactDelegate {
      
      func didBegin(_ contact: SKPhysicsContact) {
           //contact.bodyA = Kreiselement
-          /*
-          let test = contact.bodyA as? SeperatedCircle
-          var idx = 0
-          
-          for ele in self.circleList{
-               if ele as! _OptionalNilComparisonType == test{
-                    break
-               }
-               idx += 1
-          }
-          
-          self.circleList.remove(at: idx)
-          */
-          if !self.isJumping{
-               if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
-                    if nodeA.fillColor != nodeB.fillColor {
-                         dieAndRestart()
-                    }else{
-                         //Wenn farbe gleich -> Kreis zernichten!
-                         addScore()
+          if collisionFlag{
+               if !self.isJumping{
+                    if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
+                         if nodeA.fillColor != nodeB.fillColor {
+                           //   dieAndRestart()
+                         }else{
+                              //Wenn farbe gleich -> Kreis zernichten!
+                              addScore()
+                              self.circleList.removeFirst()
+                         }
                     }
-               }
           }
+               self.collisionFlag = false
+          }else{
+               self.collisionFlag = true
+          }
+          
      }
 }
 
