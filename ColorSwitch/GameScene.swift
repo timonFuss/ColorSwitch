@@ -195,69 +195,9 @@ class GameScene: SKScene {
 
           if let accelerometerData = motionManager.accelerometerData {
                if !isJumping{
-                    print(self.phoneTendInYAxis)
-                    if self.phoneTendInYAxis >= 0.05{
-                         
-                         if self.phoneTendInYAxis < 0.1{
-                              self.angle += 0.03
-                         }else if self.phoneTendInYAxis >= 0.1 && self.phoneTendInYAxis < 0.2{
-                              self.angle += 0.04
-                         }else if self.phoneTendInYAxis >= 0.2 && self.phoneTendInYAxis < 0.3{
-                              self.angle += 0.07
-                         }else if self.phoneTendInYAxis >= 0.3 && self.phoneTendInYAxis < 0.4{
-                              self.angle += 0.08
-                         }else if self.phoneTendInYAxis >= 0.4 && self.phoneTendInYAxis < 0.5{
-                              self.angle += 0.1
-                         }else if self.phoneTendInYAxis >= 0.5{
-                              self.angle += 0.12
-                         }
-                         
-                         
-                         /*
-                         if self.phoneTendInYAxis < 0.4{
-                              self.angle += 0.05
-                         }else {
-                              self.angle += 0.10
-                         }
- */
-                    }else if self.phoneTendInYAxis <= -0.1{
-                         
-                         if self.phoneTendInYAxis > -0.1{
-                              self.angle -= 0.03
-                         }else if self.phoneTendInYAxis <= -0.1 && self.phoneTendInYAxis > -0.2{
-                              self.angle -= 0.04
-                         }else if self.phoneTendInYAxis <= -0.2 && self.phoneTendInYAxis > -0.3{
-                              self.angle -= 0.07
-                         }else if self.phoneTendInYAxis <= -0.3 && self.phoneTendInYAxis > -0.4{
-                              self.angle -= 0.08
-                         }else if self.phoneTendInYAxis <= -0.4 && self.phoneTendInYAxis > -0.5{
-                              self.angle -= 0.1
-                         }else if self.phoneTendInYAxis <= -0.5{
-                              self.angle -= 0.12  
-                         }
-                         /*
-                         switch self.phoneTendInYAxis{
-                         case -0.1:
-                              self.angle -= 0.04
-                         case -0.2:
-                              self.angle -= 0.05
-                         case -0.3:
-                              self.angle -= 0.06
-                         case -0.4:
-                              self.angle -= 0.07
-                         default:
-                              self.angle -= 0.08
-                         }*/
-                         /*
-                         if self.phoneTendInYAxis > -0.4{
-                              self.angle -= 0.05
-                         }else{
-                              self.angle -= 0.10
-                         }
- */
-                    }
+                    self.setRotationAngle()
                     
-                    self.jumpEndPosition = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 3, y: pos.y * 3))
+                    self.jumpEndPosition = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 4, y: pos.y * 4))
                     self.newLocation = calculatePoint(degree: self.angle, position: pos )
                     
                     removeChildren(in: [self.playerFigureNode])
@@ -265,15 +205,13 @@ class GameScene: SKScene {
                     self.playerFigureNode = playerFigure.updatePlayerFigure(locationPlayerBall: self.newLocation)
                     addChild(self.playerFigureNode)
                }else{
+                    
                     if self.preJumpPosition == CGPoint.zero{
                          self.preJumpPosition = self.playerFigure.playerBallShape.position
                          self.actualJumpLocation = self.preJumpPosition
                          self.jumpAmountMax = self.calculateAmount(firstPoint: self.preJumpPosition, secondPoint: self.jumpEndPosition)
                          self.jumpAmountActual = self.jumpAmountMax
-                         print(self.preJumpPosition)
                     }
-                    
-                    
                     
                     removeChildren(in: [self.playerFigureNode])
                     if self.jumpAmountActual > 5{
@@ -286,8 +224,6 @@ class GameScene: SKScene {
                          self.preJumpPosition = CGPoint.zero
                          self.isJumping = false
                     }
-
-                    
                     
                     self.playerFigureNode = playerFigure.updatePlayerFigure(locationPlayerBall: self.actualJumpLocation)
                     addChild(self.playerFigureNode)
@@ -296,6 +232,42 @@ class GameScene: SKScene {
           }
           
      }
+     
+     private func setRotationAngle(){
+          if self.phoneTendInYAxis >= 0.05{
+               
+               if self.phoneTendInYAxis < 0.1{
+                    self.angle += 0.03
+               }else if self.phoneTendInYAxis >= 0.1 && self.phoneTendInYAxis < 0.2{
+                    self.angle += 0.04
+               }else if self.phoneTendInYAxis >= 0.2 && self.phoneTendInYAxis < 0.3{
+                    self.angle += 0.07
+               }else if self.phoneTendInYAxis >= 0.3 && self.phoneTendInYAxis < 0.4{
+                    self.angle += 0.08
+               }else if self.phoneTendInYAxis >= 0.4 && self.phoneTendInYAxis < 0.5{
+                    self.angle += 0.1
+               }else if self.phoneTendInYAxis >= 0.5{
+                    self.angle += 0.12
+               }
+               
+          }else if self.phoneTendInYAxis <= -0.1{
+               
+               if self.phoneTendInYAxis > -0.1{
+                    self.angle -= 0.03
+               }else if self.phoneTendInYAxis <= -0.1 && self.phoneTendInYAxis > -0.2{
+                    self.angle -= 0.04
+               }else if self.phoneTendInYAxis <= -0.2 && self.phoneTendInYAxis > -0.3{
+                    self.angle -= 0.07
+               }else if self.phoneTendInYAxis <= -0.3 && self.phoneTendInYAxis > -0.4{
+                    self.angle -= 0.08
+               }else if self.phoneTendInYAxis <= -0.4 && self.phoneTendInYAxis > -0.5{
+                    self.angle -= 0.1
+               }else if self.phoneTendInYAxis <= -0.5{
+                    self.angle -= 0.12
+               }
+          }
+     }
+     
      private func calculatePoint(degree: CGFloat, position: CGPoint) -> CGPoint{
           var x = sqrt((position.x * position.x) + (position.y * position.y)) * cos(degree)
           var y = sqrt((position.x * position.x) + (position.y * position.y)) * sin(degree)
@@ -316,13 +288,28 @@ class GameScene: SKScene {
 extension GameScene: SKPhysicsContactDelegate {
      
      func didBegin(_ contact: SKPhysicsContact) {
+          //contact.bodyA = Kreiselement
+          /*
+          let test = contact.bodyA as? SeperatedCircle
+          var idx = 0
           
-          if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
-               if nodeA.fillColor != nodeB.fillColor {
-                    dieAndRestart()
-               }else{
-                    //Wenn farbe gleich -> Kreis zernichten!
-                    addScore()
+          for ele in self.circleList{
+               if ele as! _OptionalNilComparisonType == test{
+                    break
+               }
+               idx += 1
+          }
+          
+          self.circleList.remove(at: idx)
+          */
+          if !self.isJumping{
+               if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
+                    if nodeA.fillColor != nodeB.fillColor {
+                         dieAndRestart()
+                    }else{
+                         //Wenn farbe gleich -> Kreis zernichten!
+                         addScore()
+                    }
                }
           }
      }
