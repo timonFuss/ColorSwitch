@@ -17,4 +17,5 @@ enum Sort: String {
     case PLAYER
     case SEPERATEDCIRCLE
     case SQUARE
+    case WALL
 }

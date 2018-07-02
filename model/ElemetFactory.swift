@@ -37,6 +37,8 @@ class ElementFactory {
         }else if (sort == Sort.SEPERATEDCIRCLE){
 
             return SeperatedCircle(amountSegments: 4, center: center, radius: CGFloat(450))
+        }else if (sort == Sort.WALL){
+            return Wall(center: center)
         }
         /*else if (sort == Sort.SQUARE){
             return Square()
