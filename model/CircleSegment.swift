@@ -27,7 +27,8 @@ class CircleSegment{
     //ObjectVariables
     var segment: SKShapeNode = SKShapeNode()
     var path = UIBezierPath()
-    
+    let clockwise: Bool
+    let rotationFactor: CGFloat
     /// Initializes a CircleSegment
     ///
     /// - Parameters:
@@ -36,13 +37,16 @@ class CircleSegment{
     ///   - center: defines the position of the segment
     ///   - startAngle: defines the startAngle of the segment
     ///   - endAngle: defines how big (degree/360) the segment should be in dependency of the startAngle
-    init(color: SKColor, radius:CGFloat, center:CGPoint, startAngle: CGFloat, endAngle: CGFloat) {
+    init(color: SKColor, radius:CGFloat, center:CGPoint, startAngle: CGFloat, endAngle: CGFloat, rotationFactor: CGFloat, clockwise: Bool) {
         self.color = color
         self.radius = radius
         self.startAngle = startAngle
         self.endAngle = endAngle
         self.center = center
         
+        self.rotationFactor = rotationFactor
+        self.clockwise = clockwise
+    
         let path = self.generatePath()
         self.segment = SKShapeNode(path: path.cgPath)
         
@@ -56,6 +60,9 @@ class CircleSegment{
         
         self.segment.strokeColor = self.color
         self.segment.fillColor = self.color
+        
+        
+
  
     }
     
@@ -66,19 +73,7 @@ class CircleSegment{
         return self.segment
     }
     
-    /// Calculates the new point in dependency of the old point
-    ///
-    /// - Parameters:
-    ///   - position: the actual position
-    ///   - degree: in which angle the point should be calculated
-    /// - Returns: the calculated new point
-    func calculatePoint(position: CGPoint, degree: CGFloat) -> CGPoint{
-        var x = sqrt((position.x * position.x) + (position.y * position.y)) * cos(degree)
-        var y = sqrt((position.x * position.x) + (position.y * position.y)) * sin(degree)
-        x = x + self.center.x
-        y = y + self.center.y
-        return CGPoint(x: x, y: y)
-    }
+
     
     /// Calculates the paths of the segment
     ///
@@ -110,19 +105,14 @@ class CircleSegment{
     func animateSegment(radius: CGFloat) -> SKShapeNode{
         self.radius = radius
 
-        //Changes the angle of the object to a max of 360 degrees
-        //than starts again at 0 degree
-        if self.startAngle < 360.0{
-            self.startAngle += 0.05
+        if !self.clockwise{
+            self.startAngle += self.rotationFactor
+            self.endAngle += self.rotationFactor
         }else{
-           self.startAngle = 0.0
+            self.startAngle -= self.rotationFactor
+            self.endAngle -= self.rotationFactor
         }
         
-        if self.endAngle < 360.0{
-            self.endAngle += 0.05
-        }else{
-            self.endAngle = 0.0
-        }
 
         let path = self.generatePath()
         self.segment.path = path.cgPath

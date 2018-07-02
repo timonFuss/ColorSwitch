@@ -41,11 +41,20 @@ class SeperatedCircle: Element {
     ///
     /// - Returns: the defined SKShapeNode of the SeperatedCircle
     func create() -> SKShapeNode{
+        let random = CGFloat(arc4random_uniform(3)+1)
+        let rotationFactor = CGFloat(random/100)
+        let clockwiseBool = Int(arc4random_uniform(2))
+        var clockwise: Bool
+        if clockwiseBool == 0{
+            clockwise = false
+        }else{
+            clockwise = true
+        }
         for i in 0...(amountSegments - 1){
             let start = CGFloat(3.0 * Double.pi/2) + (CGFloat(i) * self.rotationAngle)
             let end = CGFloat(0) + (CGFloat(i) * self.rotationAngle)
             
-            let circle = CircleSegment(color: colors[i], radius: self.radius, center: self.center, startAngle: start, endAngle: end)
+            let circle = CircleSegment(color: colors[i], radius: self.radius, center: self.center, startAngle: start, endAngle: end, rotationFactor: rotationFactor, clockwise: clockwise)
             self.segments.append(circle)
             self.circle.addChild(self.segments[i].create())
         }

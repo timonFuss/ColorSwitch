@@ -73,7 +73,7 @@ class GameScene: SKScene {
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),
-                    SKAction.wait(forDuration: 1.5)
+                    SKAction.wait(forDuration: 2.5)
                     ])
           ), withKey: "Creator")
      }
@@ -195,18 +195,66 @@ class GameScene: SKScene {
 
           if let accelerometerData = motionManager.accelerometerData {
                if !isJumping{
-                    if self.phoneTendInYAxis > 0.1{
+                    print(self.phoneTendInYAxis)
+                    if self.phoneTendInYAxis >= 0.05{
+                         
+                         if self.phoneTendInYAxis < 0.1{
+                              self.angle += 0.03
+                         }else if self.phoneTendInYAxis >= 0.1 && self.phoneTendInYAxis < 0.2{
+                              self.angle += 0.04
+                         }else if self.phoneTendInYAxis >= 0.2 && self.phoneTendInYAxis < 0.3{
+                              self.angle += 0.07
+                         }else if self.phoneTendInYAxis >= 0.3 && self.phoneTendInYAxis < 0.4{
+                              self.angle += 0.08
+                         }else if self.phoneTendInYAxis >= 0.4 && self.phoneTendInYAxis < 0.5{
+                              self.angle += 0.1
+                         }else if self.phoneTendInYAxis >= 0.5{
+                              self.angle += 0.12
+                         }
+                         
+                         
+                         /*
                          if self.phoneTendInYAxis < 0.4{
                               self.angle += 0.05
                          }else {
-                              self.angle += 0.08
+                              self.angle += 0.10
                          }
-                    }else if self.phoneTendInYAxis < -0.1{
+ */
+                    }else if self.phoneTendInYAxis <= -0.1{
+                         
+                         if self.phoneTendInYAxis > -0.1{
+                              self.angle -= 0.03
+                         }else if self.phoneTendInYAxis <= -0.1 && self.phoneTendInYAxis > -0.2{
+                              self.angle -= 0.04
+                         }else if self.phoneTendInYAxis <= -0.2 && self.phoneTendInYAxis > -0.3{
+                              self.angle -= 0.07
+                         }else if self.phoneTendInYAxis <= -0.3 && self.phoneTendInYAxis > -0.4{
+                              self.angle -= 0.08
+                         }else if self.phoneTendInYAxis <= -0.4 && self.phoneTendInYAxis > -0.5{
+                              self.angle -= 0.1
+                         }else if self.phoneTendInYAxis <= -0.5{
+                              self.angle -= 0.12  
+                         }
+                         /*
+                         switch self.phoneTendInYAxis{
+                         case -0.1:
+                              self.angle -= 0.04
+                         case -0.2:
+                              self.angle -= 0.05
+                         case -0.3:
+                              self.angle -= 0.06
+                         case -0.4:
+                              self.angle -= 0.07
+                         default:
+                              self.angle -= 0.08
+                         }*/
+                         /*
                          if self.phoneTendInYAxis > -0.4{
                               self.angle -= 0.05
                          }else{
-                              self.angle -= 0.08
+                              self.angle -= 0.10
                          }
+ */
                     }
                     
                     self.jumpEndPosition = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 3, y: pos.y * 3))
