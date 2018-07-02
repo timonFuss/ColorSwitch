@@ -58,7 +58,7 @@ class CircleSegment{
         sectionBody.affectedByGravity = false
         self.segment.physicsBody = sectionBody
         
-        self.segment.strokeColor = self.color
+        self.segment.strokeColor = SKColor.clear
         self.segment.fillColor = self.color
         
         
@@ -127,5 +127,10 @@ class CircleSegment{
         self.segment.physicsBody = sectionBody
 
         return self.segment
+    }
+    
+    func setInactiveColor(){
+        self.segment.fillColor = self.color.withAlphaComponent(0.5)
+        self.segment.strokeColor = SKColor.clear
     }
 }

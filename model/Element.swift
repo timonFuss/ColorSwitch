@@ -17,4 +17,6 @@ protocol Element {
     func create(location: CGPoint) -> SKNode
     func isActive() -> Bool
     func isFirstCreation() -> Bool
+    func setObjectIsInactive()
+    func getActiveState() -> Bool
 }

@@ -11,6 +11,14 @@ import SpriteKit
 
 // Class that is needed to play the Game
 class PlayerFigure: Element {
+    func getActiveState() -> Bool {
+        return true
+    }
+    
+    func setObjectIsInactive() {
+        
+    }
+    
 
     //InformationVariables
     let innerCircleRadius: CGFloat = 25
@@ -38,7 +46,7 @@ class PlayerFigure: Element {
         innerCircle = Circle(location: location, fill: false, fillColor: SKColor.red, strokeColor: SKColor.red, radius: innerCircleRadius)
         
         //Creates the playerBall
-        playerBallCircle = Circle(location: CGPoint(x:ballLocation.x,y:ballLocation.y + (innerCircleRadius + playerBallRadius)+3), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.blue, radius: playerBallRadius)
+        playerBallCircle = Circle(location: CGPoint(x:ballLocation.x,y:ballLocation.y + (innerCircleRadius + playerBallRadius)+3), fill: true, fillColor: SKColor.blue, strokeColor: SKColor.clear, radius: playerBallRadius)
 
         //Named the Shape of the innerCircle to have an access later on
         //and place it on z-axis above the other Elements

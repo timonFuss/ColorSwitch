@@ -22,6 +22,7 @@ class GameScene: SKScene {
      
      //Objectvariables
      let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
+     var colorIdx: Int = 0
      var playerFigure = PlayerFigure()
      var obstacles: [SKNode] = []
      var elementList: [SKNode] = []
@@ -66,6 +67,7 @@ class GameScene: SKScene {
           motionManager = CMMotionManager()
           motionManager.startAccelerometerUpdates()
           backgroundColor = SKColor.black
+         // view.showsPhysics = true
      }
      
      func setupPlayerAndObstacles() {
@@ -94,7 +96,7 @@ class GameScene: SKScene {
      }
      
      func setUpPhysicsBody(){
-          let playerBody = SKPhysicsBody(circleOfRadius: self.playerFigure.playerBallCircle.radius)
+          let playerBody = SKPhysicsBody(circleOfRadius: self.playerFigure.playerBallCircle.radius - 4)
           playerBody.categoryBitMask = PhysicsCategory.Player
           playerBody.collisionBitMask = 4
           playerBody.affectedByGravity = false
@@ -147,13 +149,18 @@ class GameScene: SKScene {
           
           if swipeDistance > 20 && !self.isJumping{
                self.isJumping = true
+          }else{
+               self.colorIdx += 1
+               if self.colorIdx > 3{
+                    self.colorIdx = 0
+               }
+               playerFigure.playerBallCircle.ball.fillColor = colors[self.colorIdx]
           }
           
           touched = false
      }
 
      override func update(_ currentTime: TimeInterval) {
-          print("gude")
           removeAllChildren()
           addChild(scoreLabel)
           self.playerFigureAnimations()
@@ -282,7 +289,7 @@ class GameScene: SKScene {
      private func calculateAmount(firstPoint: CGPoint, secondPoint: CGPoint) -> CGFloat{
           return sqrt(((secondPoint.x - firstPoint.x) * (secondPoint.x - firstPoint.x)) + ((secondPoint.y - firstPoint.y) * (secondPoint.y - firstPoint.y)))
      }
-     func addScore(){
+     private func addScore(){
           self.score += 10
           self.scoreLabel.text = String(self.score)
      }
@@ -293,17 +300,21 @@ extension GameScene: SKPhysicsContactDelegate {
      func didBegin(_ contact: SKPhysicsContact) {
           //contact.bodyA = Kreiselement
           if collisionFlag{
+             
                if !self.isJumping{
                     if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
                          if nodeA.fillColor != nodeB.fillColor {
-                           //   dieAndRestart()
+                              dieAndRestart()
                          }else{
                               //Wenn farbe gleich -> Kreis zernichten!
                               addScore()
                               self.circleList.removeFirst()
                          }
                     }
-          }
+               }else{
+                    self.circleList[0].setObjectIsInactive()
+                    self.circleList.removeFirst()
+               }
                self.collisionFlag = false
           }else{
                self.collisionFlag = true

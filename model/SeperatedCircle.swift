@@ -55,7 +55,7 @@ class SeperatedCircle: Element {
             let start = CGFloat(3.0 * Double.pi/2) + (CGFloat(i) * self.rotationAngle)
             let end = CGFloat(0) + (CGFloat(i) * self.rotationAngle)
             
-            let circle = CircleSegment(color: colors[i], radius: self.radius, center: self.center, startAngle: start, endAngle: end, rotationFactor: rotationFactor, clockwise: clockwise)
+            let circle = CircleSegment(color: colors[Int(arc4random_uniform(4))], radius: self.radius, center: self.center, startAngle: start, endAngle: end, rotationFactor: rotationFactor, clockwise: clockwise)
             self.segments.append(circle)
             self.circle.addChild(self.segments[i].create())
         }
@@ -94,8 +94,15 @@ class SeperatedCircle: Element {
         return self.objectIsActive
     }
     
+    func getActiveState() -> Bool{
+        return self.objectIsActive
+    }
+    
     func setObjectIsInactive(){
         self.objectIsActive = false
+        for segment in self.segments{
+            segment.setInactiveColor()
+        }
     }
     
     func isFirstCreation() -> Bool{
