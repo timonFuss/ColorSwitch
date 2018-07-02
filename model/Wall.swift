@@ -14,31 +14,40 @@ class Wall: Element {
     var center: CGPoint
     var wall: SKShapeNode = SKShapeNode()
     var section = SKShapeNode()
+    let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
+    var spacing = CGFloat(10)
+
     
     init(center : CGPoint) {
         self.center = center
     }
     
-    func create(location: CGPoint, ballLocation: CGPoint) -> SKNode {
-        self.section = SKShapeNode(path: generatePath().cgPath)
-        self.section.fillColor = SKColor.green
-        self.section.strokeColor = SKColor.green
+    func create() -> SKShapeNode {
+        let rotationFactor = CGFloat(Double.pi / 2)
         
-        self.wall.addChild(section)
+        for i in 0...3 {
+            let section = SKShapeNode(path: generatePath().cgPath)
+            section.position = CGPoint(x: self.center.x, y: spacing * CGFloat(i))
+            section.fillColor = colors[i]
+            section.strokeColor = colors[i]
+            section.zRotation = rotationFactor * CGFloat(i)
+            
+            self.wall.addChild(section)
+        }
         
         return self.wall
     }
     
+    func create(location: CGPoint, ballLocation: CGPoint) -> SKNode {
+        return self.wall
+    }
+    
     private func generatePath() -> UIBezierPath {
-        let path = UIBezierPath(roundedRect: CGRect(x: self.center.x, y: self.center.y, width: 200, height: 20), cornerRadius: 5)
+        let path = UIBezierPath(roundedRect: CGRect(x: self.center.x, y: self.center.y, width: 100, height: 10), cornerRadius: 5)
         return path
     }
     
     func doAnimation() -> SKShapeNode {
-        return SKShapeNode()
-    }
-    
-    func create() -> SKShapeNode {
         return SKShapeNode()
     }
     
