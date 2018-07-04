@@ -44,6 +44,8 @@ class GameScene: SKScene {
      let scoreLabel = SKLabelNode()
      var score = 0
      var newLocation: CGPoint = CGPoint.zero
+     var creationTime = 2.5
+     var creationCounter = 1
      
      //Jumpvariables
      var actualJumpLocation: CGPoint = CGPoint.zero
@@ -74,12 +76,20 @@ class GameScene: SKScene {
      
      func setupPlayerAndObstacles() {
           addPlayer(factory: self.factory!)
-          
+          run(SKAction.repeatForever(
+               SKAction.sequence([
+                    SKAction.run(addElements),
+                    SKAction.wait(forDuration: self.creationTime)
+                    ])
+          ), withKey: "Creator")
+     }
+     
+     func startCreationProcess() {
           //adds every second Elements
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),
-                    SKAction.wait(forDuration: 2.5)
+                    SKAction.wait(forDuration: self.creationTime)
                     ])
           ), withKey: "Creator")
      }
@@ -93,11 +103,19 @@ class GameScene: SKScene {
      }
      
      func addElements(){
+          /*if (creationCounter % 11) == 0 {
+               self.creationTime -= 0.1
+               //removeAction(forKey: "Creator")
+               removeAllActions()
+               startCreationProcess()
+          }*/
+          
           let random = arc4random_uniform(20)
           switch(random){
           case 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16:
                let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter, positionBottom: true)
                circleList.append(sepCircle!)
+               creationCounter += 1
                break
           case 17,18,19:
                let randomPos = arc4random_uniform(2)
@@ -111,8 +129,10 @@ class GameScene: SKScene {
           default:
                let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter, positionBottom: true)
                circleList.append(sepCircle!)
+               creationCounter += 1
                break
           }
+          
      }
      
      func setUpPhysicsBody(){
@@ -163,8 +183,6 @@ class GameScene: SKScene {
           for touch in touches{
                self.touchEndLocation = touch.location(in: self)
           }
-          print(self.touchEndLocation)
-          
           
           let swipeDistance = calculateAmount(firstPoint: self.touchStartLocation, secondPoint: self.touchEndLocation)
           
@@ -223,7 +241,7 @@ class GameScene: SKScene {
      }
      
      func addPointLabel() {
-          scoreLabel.position = self.screenCenter
+          scoreLabel.position = CGPoint(x: self.screenCenter.x, y: self.screenCenter.y - 10)
           scoreLabel.fontColor = .white
           scoreLabel.fontSize = 30
           scoreLabel.text = String(score)
@@ -350,16 +368,18 @@ extension GameScene: SKPhysicsContactDelegate {
                if !self.isJumping{
                     if let nodeA = contact.bodyA.node as? SKShapeNode, let nodeB = contact.bodyB.node as? SKShapeNode {
                          if nodeA.fillColor != nodeB.fillColor {
+                              print("ungleiche Farbe",circleList)
                               self.colorIdx = 0
                               dieAndRestart()
                          }else{
+                              print("gleiche Farbe",circleList)
                               //Wenn farbe gleich -> Kreis zernichten!
-                              updateScore(score: 10)
+                              updateScore(score: 1)
                               self.circleList.removeFirst()
                          }
                     }
                }else{
-                    updateScore(score: -10)
+                    updateScore(score: -1)
                     self.circleList[0].setObjectIsInactive()
                     self.circleList.removeFirst()
                }
@@ -367,6 +387,7 @@ extension GameScene: SKPhysicsContactDelegate {
           }else{
                self.collisionFlag = true
           }
+          print("____________________")
           
      }
 }

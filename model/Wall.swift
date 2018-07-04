@@ -26,7 +26,7 @@ class Wall: Element {
     
     func create() -> SKShapeNode {
         
-        let section = SKShapeNode(path: generatePath().cgPath)
+        self.section = SKShapeNode(path: generatePath().cgPath)
         section.fillColor = SKColor.green
         section.strokeColor = SKColor.green
         section.zRotation = CGFloat(Double.pi / 2)
@@ -57,7 +57,7 @@ class Wall: Element {
         self.wall.removeAllChildren()
         self.position.y -= 3
         
-        let section = SKShapeNode(path: generatePath().cgPath)
+        self.section = SKShapeNode(path: generatePath().cgPath)
         section.fillColor = SKColor.green
         section.strokeColor = SKColor.green
         section.zRotation = CGFloat(Double.pi / 2)
