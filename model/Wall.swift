@@ -11,29 +11,29 @@ import SpriteKit
 import GameplayKit
 
 class Wall: Element {
-    var center: CGPoint
+    var halfScreen: CGPoint
     var wall: SKShapeNode = SKShapeNode()
     var section = SKShapeNode()
     let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
-    var spacing = CGFloat(10)
-
+    var position: CGPoint = CGPoint(x: 0, y: 0)
+    var firstCreation: Bool = true
+    let positionBottom: Bool
     
-    init(center : CGPoint) {
-        self.center = center
+    init(screenCenter : CGPoint, positionBottom: Bool) {
+        self.halfScreen = screenCenter
+        self.positionBottom = positionBottom
     }
     
     func create() -> SKShapeNode {
-        let rotationFactor = CGFloat(Double.pi / 2)
         
-        for i in 0...3 {
-            let section = SKShapeNode(path: generatePath().cgPath)
-            section.position = CGPoint(x: self.center.x, y: spacing * CGFloat(i))
-            section.fillColor = colors[i]
-            section.strokeColor = colors[i]
-            section.zRotation = rotationFactor * CGFloat(i)
+        let section = SKShapeNode(path: generatePath().cgPath)
+        section.fillColor = SKColor.green
+        section.strokeColor = SKColor.green
+        section.zRotation = CGFloat(Double.pi / 2)
             
-            self.wall.addChild(section)
-        }
+        self.wall.addChild(section)
+        
+        self.firstCreation = false
         
         return self.wall
     }
@@ -43,12 +43,36 @@ class Wall: Element {
     }
     
     private func generatePath() -> UIBezierPath {
-        let path = UIBezierPath(roundedRect: CGRect(x: self.center.x, y: self.center.y, width: 100, height: 10), cornerRadius: 5)
+        var path = UIBezierPath()
+        if self.positionBottom{
+            path = UIBezierPath(roundedRect: CGRect(x: self.position.x, y: self.position.y, width: self.halfScreen.y, height: 10), cornerRadius: 5)
+        }else{
+            path = UIBezierPath(roundedRect: CGRect(x: self.position.x + self.halfScreen.y, y: self.position.y, width: self.halfScreen.y, height: 10), cornerRadius: 5)
+        }
+        
         return path
     }
     
     func doAnimation() -> SKShapeNode {
-        return SKShapeNode()
+        self.wall.removeAllChildren()
+        self.position.y -= 3
+        
+        let section = SKShapeNode(path: generatePath().cgPath)
+        section.fillColor = SKColor.green
+        section.strokeColor = SKColor.green
+        section.zRotation = CGFloat(Double.pi / 2)
+        
+        //Collosion
+        let sectionBody = SKPhysicsBody(polygonFrom: generatePath().cgPath)
+        sectionBody.categoryBitMask = PhysicsCategory.Obstacle
+        sectionBody.collisionBitMask = 0
+        sectionBody.contactTestBitMask = PhysicsCategory.Player
+        sectionBody.affectedByGravity = false
+        section.physicsBody = sectionBody
+        
+        self.wall.addChild(section)
+        
+        return self.wall
     }
     
     func create(location: CGPoint) -> SKNode {
@@ -56,11 +80,14 @@ class Wall: Element {
     }
     
     func isActive() -> Bool {
-        return true
+        if self.position.y >= ((self.halfScreen.x * (-2)) - 5){
+            return true
+        }
+        return false
     }
     
     func isFirstCreation() -> Bool {
-        return true
+        return self.firstCreation
     }
     
     func setObjectIsInactive() {
