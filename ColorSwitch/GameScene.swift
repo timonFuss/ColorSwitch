@@ -53,6 +53,9 @@ class GameScene: SKScene {
      var jumpEndPosition: CGPoint = CGPoint.zero
      var jumpanimationStarted: Bool = false
      var isJumping: Bool = false
+     var jumpPositions: [CGPoint] = []
+     var jumpBackIdx: Int = 0
+     var jumpReachedMax: Bool = false
      
      override func didMove(to view: SKView) {
           self.screenCenter = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2)
@@ -67,7 +70,7 @@ class GameScene: SKScene {
           motionManager = CMMotionManager()
           motionManager.startAccelerometerUpdates()
           backgroundColor = SKColor.black
-         // view.showsPhysics = true
+          view.showsPhysics = true
      }
      
      func setupPlayerAndObstacles() {
@@ -77,13 +80,13 @@ class GameScene: SKScene {
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),
-                    SKAction.wait(forDuration: 1.5)
+                    SKAction.wait(forDuration: 2.5)
                     ])
           ), withKey: "Creator")
      }
      
      func addPlayer (factory: ElementFactory) {
-          playerFigure = factory.getElement(sort: Sort.PLAYER, center: self.screenCenter) as! PlayerFigure
+          playerFigure = factory.getElement(sort: Sort.PLAYER, center: self.screenCenter, positionBottom: true) as! PlayerFigure
           playerFigureNode = playerFigure.create(location: self.screenCenter, ballLocation: self.screenCenter)
           setUpPhysicsBody()
           elementList.append(playerFigureNode)
@@ -91,8 +94,26 @@ class GameScene: SKScene {
      }
      
      func addElements(){
-          let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter)
-          circleList.append(sepCircle!)
+          let random = arc4random_uniform(20)
+          switch(random){
+          case 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16:
+               let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter, positionBottom: true)
+               circleList.append(sepCircle!)
+               break
+          case 17,18,19:
+               let randomPos = arc4random_uniform(2)
+               var posBottom = true
+               if randomPos == 0{
+                    posBottom = false
+               }
+               let wall = self.factory?.getElement(sort: Sort.WALL, center: self.screenCenter, positionBottom: posBottom)
+               circleList.append(wall!)
+               break
+          default:
+               let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter, positionBottom: true)
+               circleList.append(sepCircle!)
+               break
+          }
      }
      
      func setUpPhysicsBody(){
@@ -143,6 +164,7 @@ class GameScene: SKScene {
           for touch in touches{
                self.touchEndLocation = touch.location(in: self)
           }
+          print(self.touchEndLocation)
           
           
           let swipeDistance = calculateAmount(firstPoint: self.touchStartLocation, secondPoint: self.touchEndLocation)
@@ -215,7 +237,7 @@ class GameScene: SKScene {
                if !isJumping{
                     self.setRotationAngle()
                     
-                    self.jumpEndPosition = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 4, y: pos.y * 4))
+                    self.jumpEndPosition = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 2.5, y: pos.y * 2.5))
                     self.newLocation = calculatePoint(degree: self.angle, position: pos )
                     
                     removeChildren(in: [self.playerFigureNode])
@@ -227,21 +249,35 @@ class GameScene: SKScene {
                     
                     if self.preJumpPosition == CGPoint.zero{
                          self.preJumpPosition = self.playerFigure.playerBallShape.position
+                         self.jumpPositions.append(self.preJumpPosition)
                          self.actualJumpLocation = self.preJumpPosition
                          self.jumpAmountMax = self.calculateAmount(firstPoint: self.preJumpPosition, secondPoint: self.jumpEndPosition)
                          self.jumpAmountActual = self.jumpAmountMax
                     }
                     
                     removeChildren(in: [self.playerFigureNode])
-                    if self.jumpAmountActual > 5{
-                         self.actualJumpLocation = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 1.05, y: pos.y * 1.05))
+                    if self.jumpAmountActual > 5 && !self.jumpReachedMax{
+                         self.actualJumpLocation = calculatePoint(degree: self.angle, position: CGPoint(x: pos.x * 1.1, y: pos.y * 1.1))
                          
-                         
+                         self.jumpPositions.append(self.actualJumpLocation)
                          self.jumpAmountActual = calculateAmount(firstPoint: self.actualJumpLocation, secondPoint: self.jumpEndPosition)
+                         self.jumpBackIdx += 1
                     }else{
-                         self.actualJumpLocation = self.preJumpPosition
-                         self.preJumpPosition = CGPoint.zero
-                         self.isJumping = false
+                         self.jumpReachedMax = true
+                    }
+                    
+                    if self.jumpReachedMax{
+                         self.actualJumpLocation = self.jumpPositions[self.jumpBackIdx]
+
+                         if self.jumpBackIdx > 0{
+                              self.jumpBackIdx -= 1
+                         }else{
+                              self.isJumping = false
+                              self.jumpReachedMax = false
+                              self.jumpPositions.removeAll()
+                              self.actualJumpLocation = self.preJumpPosition
+                              self.preJumpPosition = CGPoint.zero
+                         }
                     }
                     
                     self.playerFigureNode = playerFigure.updatePlayerFigure(locationPlayerBall: self.actualJumpLocation)
