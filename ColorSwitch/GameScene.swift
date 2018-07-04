@@ -70,7 +70,6 @@ class GameScene: SKScene {
           motionManager = CMMotionManager()
           motionManager.startAccelerometerUpdates()
           backgroundColor = SKColor.black
-          view.showsPhysics = true
      }
      
      func setupPlayerAndObstacles() {
