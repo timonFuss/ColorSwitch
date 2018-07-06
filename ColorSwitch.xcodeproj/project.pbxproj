@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		62B4309620ECBE1A00873D00 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B4309520ECBE1A00873D00 /* StartViewController.swift */; };
 		6F4376B820EA4FAD00054D2F /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4376B720EA4FAD00054D2F /* Wall.swift */; };
+		785DF63A20EF7A6100EA48BA /* ScoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 785DF63820EF7A6100EA48BA /* ScoreModel.xcdatamodeld */; };
 		A112C67E20D1092F00D7AACC /* ElemetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C67D20D1092F00D7AACC /* ElemetFactory.swift */; };
 		A112C68020D10B5700D7AACC /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C67F20D10B5700D7AACC /* Sort.swift */; };
 		A112C68220D10C9800D7AACC /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C68120D10C9800D7AACC /* Element.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		62B4309520ECBE1A00873D00 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		6F4376B720EA4FAD00054D2F /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
+		785DF63920EF7A6100EA48BA /* ScoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScoreModel.xcdatamodel; sourceTree = "<group>"; };
 		A112C67D20D1092F00D7AACC /* ElemetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElemetFactory.swift; sourceTree = "<group>"; };
 		A112C67F20D10B5700D7AACC /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		A112C68120D10C9800D7AACC /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				A1A1F04B20C7B44900C4CDE5 /* LaunchScreen.storyboard */,
 				A1A1F04E20C7B44900C4CDE5 /* Info.plist */,
 				62B4309520ECBE1A00873D00 /* StartViewController.swift */,
+				785DF63820EF7A6100EA48BA /* ScoreModel.xcdatamodeld */,
 			);
 			path = ColorSwitch;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				A112C67E20D1092F00D7AACC /* ElemetFactory.swift in Sources */,
 				A11304BF20C7E76B00746532 /* PlayerFigure.swift in Sources */,
 				A1A1F04320C7B44900C4CDE5 /* GameScene.swift in Sources */,
+				785DF63A20EF7A6100EA48BA /* ScoreModel.xcdatamodeld in Sources */,
 				62B4309620ECBE1A00873D00 /* StartViewController.swift in Sources */,
 				A112C68020D10B5700D7AACC /* Sort.swift in Sources */,
 				A1A1F04520C7B44900C4CDE5 /* GameViewController.swift in Sources */,
@@ -616,6 +620,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		785DF63820EF7A6100EA48BA /* ScoreModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				785DF63920EF7A6100EA48BA /* ScoreModel.xcdatamodel */,
+			);
+			currentVersion = 785DF63920EF7A6100EA48BA /* ScoreModel.xcdatamodel */;
+			path = ScoreModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A1A1F03120C7B44900C4CDE5 /* Project object */;
 }
