@@ -29,6 +29,8 @@ class CircleSegment{
     var path = UIBezierPath()
     let clockwise: Bool
     let rotationFactor: CGFloat
+    
+    let objectType: String = "CircleSegment"
     /// Initializes a CircleSegment
     ///
     /// - Parameters:
@@ -132,5 +134,9 @@ class CircleSegment{
     func setInactiveColor(){
         self.segment.fillColor = self.color.withAlphaComponent(0.5)
         self.segment.strokeColor = SKColor.clear
+    }
+    
+    func getObjectType() -> String{
+        return self.objectType
     }
 }

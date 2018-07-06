@@ -19,4 +19,5 @@ protocol Element {
     func isFirstCreation() -> Bool
     func setObjectIsInactive()
     func getActiveState() -> Bool
+    func getObjectType() -> String
 }

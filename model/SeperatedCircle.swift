@@ -12,6 +12,8 @@ import GameplayKit
 
 /// Class that combines CircleSegments to a whole Circle
 class SeperatedCircle: Element {
+
+    
     
     //ObjectVariables
     var segments: [CircleSegment] = []
@@ -25,6 +27,7 @@ class SeperatedCircle: Element {
     var radius: CGFloat
     var firstCreation: Bool = true
     var objectIsActive: Bool = true
+    let objectType:String = "Circle"
     
     /// Initializes a Seperated Circle
     ///
@@ -60,6 +63,7 @@ class SeperatedCircle: Element {
             self.circle.addChild(self.segments[i].create())
         }
         self.firstCreation = false
+        self.circle.childNode(withName: "Circle")
         return self.circle
     }
     
@@ -107,6 +111,10 @@ class SeperatedCircle: Element {
     
     func isFirstCreation() -> Bool{
         return self.firstCreation
+    }
+    
+    func getObjectType() -> String {
+        return self.objectType
     }
 }
 

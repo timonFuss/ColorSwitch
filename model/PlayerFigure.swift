@@ -11,6 +11,10 @@ import SpriteKit
 
 // Class that is needed to play the Game
 class PlayerFigure: Element {
+    func getObjectType() -> String {
+        return ""
+    }
+    
     func getActiveState() -> Bool {
         return true
     }

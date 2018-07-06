@@ -18,6 +18,7 @@ class Wall: Element {
     var position: CGPoint = CGPoint(x: 0, y: 0)
     var firstCreation: Bool = true
     let positionBottom: Bool
+    let objectType:String = "Wall"
     
     init(screenCenter : CGPoint, positionBottom: Bool) {
         self.halfScreen = screenCenter
@@ -34,7 +35,6 @@ class Wall: Element {
         self.wall.addChild(section)
         
         self.firstCreation = false
-        
         return self.wall
     }
     
@@ -95,5 +95,9 @@ class Wall: Element {
     
     func getActiveState() -> Bool {
         return true
+    }
+    
+    func getObjectType() -> String{
+        return self.objectType
     }
 }
