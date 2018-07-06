@@ -76,20 +76,14 @@ class GameScene: SKScene {
           backgroundColor = SKColor.black
      }
      
+     /// Initial creation of the PlayerFigure and start of the SKAction for
+     /// the objectcreation
      func setupPlayerAndObstacles() {
           addPlayer(factory: self.factory!)
           startCreationProcess()
-          /*
-          run(SKAction.repeatForever(
-               SKAction.sequence([
-                    SKAction.run(addElements),
-                    SKAction.wait(forDuration: 2)
-                    ])
-          ), withKey: "Creator")*/
      }
-     
+     /// adds every second Elements
      func startCreationProcess() {
-          //adds every second Elements
           run(SKAction.repeatForever(
                SKAction.sequence([
                     SKAction.run(addElements),
@@ -98,6 +92,9 @@ class GameScene: SKScene {
           ), withKey: "Creator")
      }
      
+     /// Creates the PlayerFigure and adds it to the view
+     ///
+     /// - Parameter factory: Factor to create different kind of objects
      func addPlayer (factory: ElementFactory) {
           playerFigure = factory.getElement(sort: Sort.PLAYER, center: self.screenCenter, positionBottom: true) as! PlayerFigure
           playerFigureNode = playerFigure.create(location: self.screenCenter, ballLocation: self.screenCenter)
@@ -105,7 +102,7 @@ class GameScene: SKScene {
           elementList.append(playerFigureNode)
           addChild(playerFigureNode)
      }
-     
+     /// Creates and appends a new Object to our view and objectList
      func addElements(){
           let random = arc4random_uniform(20)
           switch(random){
@@ -130,7 +127,7 @@ class GameScene: SKScene {
                break
           }
      }
-     
+     /// Creates physicsbody for our PlayerFigure
      func setUpPhysicsBody(){
           let playerBody = SKPhysicsBody(circleOfRadius: self.playerFigure.playerBallCircle.radius - 4)
           playerBody.categoryBitMask = PhysicsCategory.Player
@@ -279,7 +276,7 @@ class GameScene: SKScene {
           elementList.removeAll()
      }
 
-// Adds the Point label to the Screen
+/// Adds the Point label to the Screen
      func addPointLabel() {
           scoreLabel.position = CGPoint(x: self.screenCenter.x, y: self.screenCenter.y - 10)
           scoreLabel.fontColor = .white
@@ -287,7 +284,7 @@ class GameScene: SKScene {
           scoreLabel.text = String(score)
      }
      
-// Calculates every Animation for our Playerfigure (new Position, jumpanimation)
+/// Calculates every Animation for our Playerfigure (new Position, jumpanimation)
      private func playerFigureAnimations(){
           let pos: CGPoint = CGPoint(x: playerFigure.playerBallCircle.ball.position.x - playerFigure.innerCircle.ball.position.x, y: playerFigure.playerBallCircle.ball.position.y - playerFigure.innerCircle.ball.position.y)
 
@@ -348,7 +345,7 @@ class GameScene: SKScene {
           
      }
      
-// Calculate the next Angle on the Circle for our Playfigure by the degree of the y-axis the device is tilted
+/// Calculate the next Angle on the Circle for our Playfigure by the degree of the y-axis the device is tilted
      private func setRotationAngle(){
           if self.phoneTendInYAxis >= 0.05{
                
@@ -384,6 +381,12 @@ class GameScene: SKScene {
           }
      }
 // Calculates a new Point on the Circle dependent of the Playfigures angle
+     /// Calculates a new Point on the Circle
+     ///
+     /// - Parameters:
+     ///   - degree: for the next Position on the Circle
+     ///   - position: position
+     /// - Returns: the new calculated Point
      private func calculatePoint(degree: CGFloat, position: CGPoint) -> CGPoint{
           var x = sqrt((position.x * position.x) + (position.y * position.y)) * cos(degree)
           var y = sqrt((position.x * position.x) + (position.y * position.y)) * sin(degree)
@@ -392,11 +395,19 @@ class GameScene: SKScene {
           return CGPoint(x: x, y: y)
      }
      
+     /// Calculates the amount between two points
+     ///
+     /// - Parameters:
+     ///   - firstPoint: point from
+     ///   - secondPoint: point to
+     /// - Returns: calculated amount between these two points
      private func calculateAmount(firstPoint: CGPoint, secondPoint: CGPoint) -> CGFloat{
           return sqrt(((secondPoint.x - firstPoint.x) * (secondPoint.x - firstPoint.x)) + ((secondPoint.y - firstPoint.y) * (secondPoint.y - firstPoint.y)))
      }
 
-// Updates our scoreLabel after a collision
+     /// Updates our scoreLabel after a collision
+     ///
+     /// - Parameter score: score to add/reduce
      private func updateScore(score: Int){
           self.score += score
           self.scoreLabel.text = String(self.score)

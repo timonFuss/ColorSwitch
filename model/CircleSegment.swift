@@ -29,8 +29,7 @@ class CircleSegment{
     var path = UIBezierPath()
     let clockwise: Bool
     let rotationFactor: CGFloat
-    
-    let objectType: String = "CircleSegment"
+
     /// Initializes a CircleSegment
     ///
     /// - Parameters:
@@ -62,10 +61,6 @@ class CircleSegment{
         
         self.segment.strokeColor = SKColor.clear
         self.segment.fillColor = self.color
-        
-        
-
- 
     }
     
     /// Creates the SKShapeNode that can be displayed in the Gamescene
@@ -74,8 +69,6 @@ class CircleSegment{
     func create() -> SKShapeNode{
         return self.segment
     }
-    
-
     
     /// Calculates the paths of the segment
     ///
@@ -131,12 +124,7 @@ class CircleSegment{
         return self.segment
     }
     
-    func setInactiveColor(){
-        self.segment.fillColor = self.color.withAlphaComponent(0.5)
-        self.segment.strokeColor = SKColor.clear
-    }
-    
     func getObjectType() -> String{
-        return self.objectType
+        return ""
     }
 }

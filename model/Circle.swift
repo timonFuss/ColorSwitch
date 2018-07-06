@@ -55,10 +55,6 @@ class Circle{
         return self.ball
     }
     
-    func doAnimation(oldAngle: CGFloat) -> SKShapeNode {
-        return SKShapeNode()
-    }
-    
     /// Updates the position of the Circle when changed
     ///
     /// - Parameter center: of the Circle

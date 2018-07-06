@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ColorSwitch/GameScene.swift"
-            timestampString = "552561416.584775"
+            timestampString = "552563828.1283571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "429"
+            endingLineNumber = "429"
+            landmarkName = "didBegin(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

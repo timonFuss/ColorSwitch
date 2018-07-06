@@ -12,9 +12,6 @@ import GameplayKit
 
 /// Class that combines CircleSegments to a whole Circle
 class SeperatedCircle: Element {
-
-    
-    
     //ObjectVariables
     var segments: [CircleSegment] = []
     let colors = [SKColor.yellow, SKColor.red, SKColor.blue, SKColor.purple]
@@ -102,19 +99,21 @@ class SeperatedCircle: Element {
         return self.objectIsActive
     }
     
+    /// Get the objectType
+    ///
+    /// - Returns: Objecttype as String
+    func getObjectType() -> String {
+        return self.objectType
+    }
+    
     func setObjectIsInactive(){
         self.objectIsActive = false
-        for segment in self.segments{
-            segment.setInactiveColor()
-        }
     }
     
     func isFirstCreation() -> Bool{
         return self.firstCreation
     }
     
-    func getObjectType() -> String {
-        return self.objectType
-    }
+
 }
 

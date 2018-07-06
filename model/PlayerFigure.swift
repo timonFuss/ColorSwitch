@@ -11,18 +11,6 @@ import SpriteKit
 
 // Class that is needed to play the Game
 class PlayerFigure: Element {
-    func getObjectType() -> String {
-        return ""
-    }
-    
-    func getActiveState() -> Bool {
-        return true
-    }
-    
-    func setObjectIsInactive() {
-        
-    }
-    
 
     //InformationVariables
     let innerCircleRadius: CGFloat = 25
@@ -101,6 +89,17 @@ class PlayerFigure: Element {
     }
     func isActive() -> Bool {
         return true
+    }
+    func getObjectType() -> String {
+        return ""
+    }
+    
+    func getActiveState() -> Bool {
+        return true
+    }
+    
+    func setObjectIsInactive() {
+        
     }
 }
 

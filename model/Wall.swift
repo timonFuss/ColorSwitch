@@ -86,6 +86,13 @@ class Wall: Element {
         return false
     }
     
+    /// Get the objectType
+    ///
+    /// - Returns: Objecttype as String
+    func getObjectType() -> String{
+        return self.objectType
+    }
+    
     func isFirstCreation() -> Bool {
         return self.firstCreation
     }
@@ -97,7 +104,5 @@ class Wall: Element {
         return true
     }
     
-    func getObjectType() -> String{
-        return self.objectType
-    }
+
 }
