@@ -28,7 +28,7 @@ class GameScene: SKScene {
      var playerFigure = PlayerFigure()
      var obstacles: [SKNode] = []
      var elementList: [SKNode] = []
-     var objectList: [Element] = []
+     var circleList: [Element] = []
      var playerFigureNode: SKNode = SKNode()
      var factory: ElementFactory?
      
@@ -111,7 +111,7 @@ class GameScene: SKScene {
           switch(random){
           case 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16:
                let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter, positionBottom: true)
-               objectList.append(sepCircle!)
+               circleList.append(sepCircle!)
                creationCounter += 1
                break
           case 17,18,19:
@@ -121,11 +121,11 @@ class GameScene: SKScene {
                     posBottom = false
                }
                let wall = self.factory?.getElement(sort: Sort.WALL, center: self.screenCenter, positionBottom: posBottom)
-               objectList.append(wall!)
+               circleList.append(wall!)
                break
           default:
                let sepCircle = self.factory?.getElement(sort: Sort.SEPERATEDCIRCLE, center: self.screenCenter, positionBottom: true)
-               objectList.append(sepCircle!)
+               circleList.append(sepCircle!)
                creationCounter += 1
                break
           }
@@ -145,7 +145,7 @@ class GameScene: SKScene {
           deleteElementList()
           removeAllChildren()
           removeAction(forKey: "Creator")
-          self.objectList.removeAll()
+          self.circleList.removeAll()
           playerFigureNode.removeAllChildren()
           
           for node in obstacles {
@@ -208,7 +208,7 @@ class GameScene: SKScene {
           addChild(scoreLabel)
           self.playerFigureAnimations()
           var removeIdx = 0
-          for element in objectList{
+          for element in circleList{
                if element.isActive(){
                     var shapeNode = SKShapeNode()
                     if element.isFirstCreation() {
@@ -220,7 +220,7 @@ class GameScene: SKScene {
                     }
                     
                }else{
-                    self.objectList.remove(at: removeIdx)
+                    self.circleList.remove(at: removeIdx)
                }
                removeIdx += 1
           }
@@ -238,16 +238,16 @@ class GameScene: SKScene {
                     /*When the SKAction from startCreationProcess get started, it produes a Circle directly -> there are 2 Circle very close to each other,
                          so we delete the last Circle from Screen and from our internal circleList*/
                     
-                    if self.objectList.last?.getObjectType() == "Circle"{
-                         self.objectList.removeLast()
+                    if self.circleList.last?.getObjectType() == "Circle"{
+                         self.circleList.removeLast()
                     }else{
-                         for ele in self.objectList{
+                         for ele in self.circleList{
                               if ele.getObjectType() == "Circle"{
                                    removeCircleIdx = tmpIdx
                               }
                               tmpIdx += 1
                          }
-                         self.objectList.remove(at: removeCircleIdx)
+                         self.circleList.remove(at: removeCircleIdx)
                     }
                     
                     removeAction(forKey: "Creator")
@@ -420,7 +420,7 @@ extension GameScene: SKPhysicsContactDelegate {
                               //If the colors from nodeA and nodeB are equal, remove the Circle and udate the scorelabel
                               //Get the index of the first Circle
                               var removeCircleIdx: Int = 0
-                              for ele in self.objectList{
+                              for ele in self.circleList{
                                    if ele.getObjectType() == "Circle"{
                                         break
                                    }else{
@@ -428,13 +428,13 @@ extension GameScene: SKPhysicsContactDelegate {
                                    }
                               }
                               updateScore(score: 1)
-                              self.objectList.remove(at: removeCircleIdx)
+                              self.circleList.remove(at: removeCircleIdx)
                          }
                     }
                }else{
                     updateScore(score: -1)
-                    self.objectList[0].setObjectIsInactive()
-                    self.objectList.removeFirst()
+                    self.circleList[0].setObjectIsInactive()
+                    self.circleList.removeFirst()
                }
                self.collisionFlag = false
           }else{
