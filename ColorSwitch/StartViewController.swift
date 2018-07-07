@@ -11,9 +11,13 @@ import UIKit
 class StartViewController: UIViewController {
 
  
-    
+    @IBAction func showHelp(_ sender: UIButton) {
+        performSegue(withIdentifier: "showHelp", sender: nil)
+    }
   
-    
+    @IBAction func unwindToMain(segue: UIStoryboardSegue){
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
