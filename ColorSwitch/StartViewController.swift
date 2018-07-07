@@ -10,7 +10,9 @@ import UIKit
 
 class StartViewController: UIViewController {
 
- 
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var helpButton: UIButton!
+    
     @IBAction func showHelp(_ sender: UIButton) {
         performSegue(withIdentifier: "showHelp", sender: nil)
     }
@@ -21,6 +23,9 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        playButton.layer.cornerRadius = 5
+        helpButton.layer.cornerRadius = 15
         
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")

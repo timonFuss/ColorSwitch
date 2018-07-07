@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		62B4309620ECBE1A00873D00 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B4309520ECBE1A00873D00 /* StartViewController.swift */; };
 		6F4376B820EA4FAD00054D2F /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4376B720EA4FAD00054D2F /* Wall.swift */; };
+		78013A7120F129DF008FA8CD /* helpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78013A7020F129DF008FA8CD /* helpViewController.swift */; };
+		78013A7320F12AEF008FA8CD /* SwiftGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78013A7220F12AEF008FA8CD /* SwiftGif.swift */; };
+		78013A7520F12BFC008FA8CD /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78013A7420F12BFB008FA8CD /* Logo.gif */; };
 		785DF63A20EF7A6100EA48BA /* ScoreModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 785DF63820EF7A6100EA48BA /* ScoreModel.xcdatamodeld */; };
 		A112C67E20D1092F00D7AACC /* ElemetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C67D20D1092F00D7AACC /* ElemetFactory.swift */; };
 		A112C68020D10B5700D7AACC /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = A112C67F20D10B5700D7AACC /* Sort.swift */; };
@@ -50,6 +53,9 @@
 /* Begin PBXFileReference section */
 		62B4309520ECBE1A00873D00 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		6F4376B720EA4FAD00054D2F /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
+		78013A7020F129DF008FA8CD /* helpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helpViewController.swift; sourceTree = "<group>"; };
+		78013A7220F12AEF008FA8CD /* SwiftGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGif.swift; sourceTree = "<group>"; };
+		78013A7420F12BFB008FA8CD /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		785DF63920EF7A6100EA48BA /* ScoreModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ScoreModel.xcdatamodel; sourceTree = "<group>"; };
 		A112C67D20D1092F00D7AACC /* ElemetFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElemetFactory.swift; sourceTree = "<group>"; };
 		A112C67F20D10B5700D7AACC /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
@@ -142,16 +148,19 @@
 		A1A1F03B20C7B44900C4CDE5 /* ColorSwitch */ = {
 			isa = PBXGroup;
 			children = (
+				78013A7420F12BFB008FA8CD /* Logo.gif */,
 				A1A1F03C20C7B44900C4CDE5 /* AppDelegate.swift */,
 				A1A1F03E20C7B44900C4CDE5 /* GameScene.sks */,
 				A1A1F04020C7B44900C4CDE5 /* Actions.sks */,
 				A1A1F04220C7B44900C4CDE5 /* GameScene.swift */,
 				A1A1F04420C7B44900C4CDE5 /* GameViewController.swift */,
 				A1A1F04620C7B44900C4CDE5 /* Main.storyboard */,
+				78013A7220F12AEF008FA8CD /* SwiftGif.swift */,
 				A1A1F04920C7B44900C4CDE5 /* Assets.xcassets */,
 				A1A1F04B20C7B44900C4CDE5 /* LaunchScreen.storyboard */,
 				A1A1F04E20C7B44900C4CDE5 /* Info.plist */,
 				62B4309520ECBE1A00873D00 /* StartViewController.swift */,
+				78013A7020F129DF008FA8CD /* helpViewController.swift */,
 				785DF63820EF7A6100EA48BA /* ScoreModel.xcdatamodeld */,
 			);
 			path = ColorSwitch;
@@ -287,6 +296,7 @@
 				A1A1F04A20C7B44900C4CDE5 /* Assets.xcassets in Resources */,
 				A1A1F04D20C7B44900C4CDE5 /* LaunchScreen.storyboard in Resources */,
 				A1A1F04120C7B44900C4CDE5 /* Actions.sks in Resources */,
+				78013A7520F12BFC008FA8CD /* Logo.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +333,8 @@
 				62B4309620ECBE1A00873D00 /* StartViewController.swift in Sources */,
 				A112C68020D10B5700D7AACC /* Sort.swift in Sources */,
 				A1A1F04520C7B44900C4CDE5 /* GameViewController.swift in Sources */,
+				78013A7320F12AEF008FA8CD /* SwiftGif.swift in Sources */,
+				78013A7120F129DF008FA8CD /* helpViewController.swift in Sources */,
 				A1A1F03D20C7B44900C4CDE5 /* AppDelegate.swift in Sources */,
 				A112C68420D1143000D7AACC /* SeperatedCircle.swift in Sources */,
 			);

@@ -33,9 +33,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cD1-7m-bZj">
-                                <rect key="frame" x="308" y="284" width="51" height="30"/>
+                                <rect key="frame" x="308" y="306" width="51" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Spielen"/>
+                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.34999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <state key="normal" title="Spielen">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <segue destination="BV1-FR-VrT" kind="show" identifier="startGame" id="Xgg-En-Drh"/>
                                 </connections>
@@ -43,16 +46,21 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQz-PM-6aS">
                                 <rect key="frame" x="20" y="325" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="?"/>
+                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.34999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <state key="normal" title="?">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="showHelp:" destination="90T-Rw-gJ1" eventType="touchUpInside" id="pcP-0J-rcK"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Uss-hB-IrC"/>
                     </view>
                     <connections>
+                        <outlet property="helpButton" destination="gQz-PM-6aS" id="mzG-hw-mT0"/>
+                        <outlet property="playButton" destination="cD1-7m-bZj" id="UvO-Xz-yWf"/>
                         <segue destination="AH4-oo-dVv" kind="show" identifier="showHelp" id="LfB-72-Xzl"/>
                     </connections>
                 </viewController>
@@ -60,10 +68,10 @@
             </objects>
             <point key="canvasLocation" x="-272.11394302848578" y="48.799999999999997"/>
         </scene>
-        <!--View Controller-->
+        <!--Help View Controller-->
         <scene sceneID="YwF-MF-hpy">
             <objects>
-                <viewController id="AH4-oo-dVv" sceneMemberID="viewController">
+                <viewController id="AH4-oo-dVv" customClass="helpViewController" customModule="ColorSwitch" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MLF-dR-OvF">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -76,17 +84,94 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4O6-EP-Y04">
                                                 <rect key="frame" x="316" y="921" width="34" height="30"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.34999999999999998" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="2JM-je-DN3"/>
                                                     <constraint firstAttribute="width" constant="34" id="Kvr-ZX-12B"/>
                                                 </constraints>
-                                                <state key="normal" title="back"/>
+                                                <state key="normal" title="back">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
                                                 <connections>
                                                     <segue destination="4Tg-Et-Ogu" kind="unwind" unwindAction="unwindToMainWithSegue:" id="Icf-oo-dRQ"/>
                                                 </connections>
                                             </button>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="radiusSmall" translatesAutoresizingMaskIntoConstraints="NO" id="IYr-pV-fs0">
+                                                <rect key="frame" x="47" y="258" width="240" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rotate" translatesAutoresizingMaskIntoConstraints="NO" id="cCF-hR-BJ9">
+                                                <rect key="frame" x="47" y="87" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wall" translatesAutoresizingMaskIntoConstraints="NO" id="wB9-ts-19q">
+                                                <rect key="frame" x="47" y="424" width="240" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="click" translatesAutoresizingMaskIntoConstraints="NO" id="Ppz-St-j8n">
+                                                <rect key="frame" x="47" y="591" width="240" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="jump" translatesAutoresizingMaskIntoConstraints="NO" id="5Fz-aB-Fk7">
+                                                <rect key="frame" x="47" y="762" width="276" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf8-Qk-OgI">
+                                                <rect key="frame" x="395" y="87" width="240" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                <string key="text">Die Spielerfigur hat die Fähigkeit sich je nach Neigung des Handys um den inneren Kreis zu bewegen. Je steiler das Handy geneigt ist desto schneller rotiert die Spielerfigur.</string>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zyi-uc-kye">
+                                                <rect key="frame" x="395" y="250" width="240" height="116.5"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                <string key="text">Das Kreiselement zieht sich immer weiter zusammen und nähert sich somit rotiereden dem inneren Kreis der Spielerfigur. Der Spieler muss versuchen die Spielerfigur durch die richtige Farbe zu navigieren.</string>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHl-qR-pnV">
+                                                <rect key="frame" x="395" y="408" width="235" height="133"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                <string key="text">Das Mauerelement fährt von der linken Seite des Spielfeldes zur rechten Seite des Bildschirms. Die Mauer hat immer eine unterschiedliche Farbe zur Spielerfigur und muss umfahren werden.</string>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjT-tn-FjW">
+                                                <rect key="frame" x="395" y="575" width="240" height="133"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                <string key="text">Mit einem Tipp auf den Bildschirm kann die Farbe der Spielerfigur geändert werden. Die Farbe muss ab und an geändert werden, da die Kreiselemente zufällige Farben wählen und damit nicht die Farbe der Spielerfigur enthalten müssen.</string>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6hx-tx-T7p">
+                                                <rect key="frame" x="395" y="746" width="240" height="133"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                <string key="text">Mit einer Wischgeste kann die Spielerfigur springen. Sofern die Elemente zu schnell hintereinander kommen kann der Sprung eine letzte Abhilfe bieten. Der Sprung reduziert jedoch auch die Punktzahl.</string>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Steuerung" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faE-hV-0wD">
+                                                <rect key="frame" x="213" y="8" width="240" height="41"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" red="0.52509925730321605" green="0.53281832276635444" blue="0.53895134752896168" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="4O6-EP-Y04" secondAttribute="bottom" constant="49" id="9DI-It-awf"/>
                                             <constraint firstAttribute="height" constant="1000" id="efj-TN-OOo"/>
@@ -94,6 +179,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Egw-Px-bPs" firstAttribute="top" secondItem="Kmg-kg-y5t" secondAttribute="top" id="INw-Ol-CK5"/>
                                     <constraint firstItem="Egw-Px-bPs" firstAttribute="leading" secondItem="Kmg-kg-y5t" secondAttribute="leading" id="Nhr-R8-6oa"/>
@@ -113,11 +199,21 @@
                         <viewLayoutGuide key="safeArea" id="pbB-D0-SUc"/>
                     </view>
                     <size key="freeformSize" width="667" height="1000"/>
+                    <connections>
+                        <outlet property="backButton" destination="4O6-EP-Y04" id="wD6-0S-eHM"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b2T-Oc-enD" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="4Tg-Et-Ogu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-272" y="1536"/>
+            <point key="canvasLocation" x="-272.11394302848578" y="1536"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="click" width="227" height="113"/>
+        <image name="jump" width="258" height="113"/>
+        <image name="radiusSmall" width="227" height="113"/>
+        <image name="rotate" width="243" height="151"/>
+        <image name="wall" width="227" height="113"/>
+    </resources>
 </document>
