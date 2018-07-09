@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		628892A720F35EED0085FAB6 /* EndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628892A620F35EED0085FAB6 /* EndViewController.swift */; };
 		62B4309620ECBE1A00873D00 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B4309520ECBE1A00873D00 /* StartViewController.swift */; };
 		6F4376B820EA4FAD00054D2F /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4376B720EA4FAD00054D2F /* Wall.swift */; };
 		78013A7120F129DF008FA8CD /* helpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78013A7020F129DF008FA8CD /* helpViewController.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		628892A620F35EED0085FAB6 /* EndViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndViewController.swift; sourceTree = "<group>"; };
 		62B4309520ECBE1A00873D00 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		6F4376B720EA4FAD00054D2F /* Wall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wall.swift; sourceTree = "<group>"; };
 		78013A7020F129DF008FA8CD /* helpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = helpViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				A1A1F04E20C7B44900C4CDE5 /* Info.plist */,
 				62B4309520ECBE1A00873D00 /* StartViewController.swift */,
 				78013A7020F129DF008FA8CD /* helpViewController.swift */,
+				628892A620F35EED0085FAB6 /* EndViewController.swift */,
 				785DF63820EF7A6100EA48BA /* ScoreModel.xcdatamodeld */,
 			);
 			path = ColorSwitch;
@@ -324,6 +327,7 @@
 				A11304C120C7E7C300746532 /* Circle.swift in Sources */,
 				6F4376B820EA4FAD00054D2F /* Wall.swift in Sources */,
 				A112C68620D1145500D7AACC /* CircleSegment.swift in Sources */,
+				628892A720F35EED0085FAB6 /* EndViewController.swift in Sources */,
 				A18440E420CE746D0021D848 /* Obstacles.swift in Sources */,
 				A112C68220D10C9800D7AACC /* Element.swift in Sources */,
 				A112C67E20D1092F00D7AACC /* ElemetFactory.swift in Sources */,
@@ -503,11 +507,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W84UQ7M94D;
+				DEVELOPMENT_TEAM = Q8H5NWL8GC;
 				INFOPLIST_FILE = ColorSwitch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tfuss001.ColorSwitch.123;
+				PRODUCT_BUNDLE_IDENTIFIER = tfuss001.ColorSwitch.1234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -519,11 +523,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = W84UQ7M94D;
+				DEVELOPMENT_TEAM = Q8H5NWL8GC;
 				INFOPLIST_FILE = ColorSwitch/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = tfuss001.ColorSwitch.123;
+				PRODUCT_BUNDLE_IDENTIFIER = tfuss001.ColorSwitch.1234;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

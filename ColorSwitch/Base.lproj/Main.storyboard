@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="90T-Rw-gJ1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="90T-Rw-gJ1">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,13 +16,64 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.51771414279937744" green="0.53330069780349731" blue="0.54515749216079712" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
+                    <connections>
+                        <segue destination="tIA-GI-v1M" kind="show" identifier="endGame" id="uC8-Ll-2gs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="545" y="49"/>
+        </scene>
+        <!--End View Controller-->
+        <scene sceneID="PYW-IJ-MTP">
+            <objects>
+                <viewController storyboardIdentifier="endScreen" id="tIA-GI-v1M" customClass="EndViewController" customModule="ColorSwitch" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="i7L-pf-H5f">
+                        <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lyb-Hk-RVd">
+                                <rect key="frame" x="314" y="307" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36479359865188599" green="0.38043788075447083" blue="0.38439527153968811" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Menü">
+                                    <color key="titleColor" red="0.93926091776202814" green="0.96865483076003078" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="toMenu:" destination="tIA-GI-v1M" eventType="touchUpInside" id="vEf-qJ-6J3"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G1A-pH-GQ2">
+                                <rect key="frame" x="20" y="20" width="627" height="261"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="tableCell" id="PlH-TM-KWV">
+                                        <rect key="frame" x="0.0" y="28" width="627" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PlH-TM-KWV" id="jBc-em-X4b">
+                                            <rect key="frame" x="0.0" y="0.0" width="627" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.51771414279937744" green="0.53330069780349731" blue="0.54515749216079712" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <viewLayoutGuide key="safeArea" id="jIb-2V-aKS"/>
+                    </view>
+                    <connections>
+                        <outlet property="backToMenuButton" destination="Lyb-Hk-RVd" id="6dd-0g-r2V"/>
+                        <outlet property="dataTable" destination="G1A-pH-GQ2" id="psS-QV-2ql"/>
+                        <segue destination="90T-Rw-gJ1" kind="show" identifier="showMenu" id="dDO-SU-4V4"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uVQ-Br-6cc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1316.4917541229386" y="48.799999999999997"/>
         </scene>
         <!--Start View Controller-->
         <scene sceneID="HVt-Wx-34a">
@@ -40,7 +91,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BV1-FR-VrT" kind="show" identifier="startGame" id="Xgg-En-Drh"/>
+                                    <action selector="startGame:" destination="90T-Rw-gJ1" eventType="touchUpInside" id="BNt-kk-AsX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQz-PM-6aS">
@@ -54,17 +105,37 @@
                                     <action selector="showHelp:" destination="90T-Rw-gJ1" eventType="touchUpInside" id="pcP-0J-rcK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve1-vE-2IS">
+                                <rect key="frame" x="150" y="167" width="50" height="15"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2XL-m0-OZ1">
+                                <rect key="frame" x="225" y="159" width="217" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="playerName:" destination="dhI-ja-vHZ" eventType="editingDidEnd" id="wWi-i0-Veg"/>
+                                </connections>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" cyan="0.48999999999999999" magenta="0.39000000000000001" yellow="0.34000000000000002" black="0.01" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                        <color key="backgroundColor" red="0.51771414279937744" green="0.53330069780349731" blue="0.54515749216079712" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <viewLayoutGuide key="safeArea" id="Uss-hB-IrC"/>
                     </view>
                     <connections>
                         <outlet property="helpButton" destination="gQz-PM-6aS" id="mzG-hw-mT0"/>
                         <outlet property="playButton" destination="cD1-7m-bZj" id="UvO-Xz-yWf"/>
+                        <outlet property="playerName" destination="2XL-m0-OZ1" id="tEw-k0-Vzn"/>
                         <segue destination="AH4-oo-dVv" kind="show" identifier="showHelp" id="LfB-72-Xzl"/>
+                        <segue destination="BV1-FR-VrT" kind="show" identifier="startGame" id="k42-br-MEV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oI7-4p-V2k" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="dhI-ja-vHZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-272.11394302848578" y="48.799999999999997"/>
         </scene>

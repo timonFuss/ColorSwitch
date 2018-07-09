@@ -10,8 +10,13 @@ import UIKit
 
 class StartViewController: UIViewController {
 
+    @IBAction func startGame(_ sender: UIButton) {
+        performSegue(withIdentifier: "startGame", sender: nil)
+    }
     @IBOutlet weak var playButton: UIButton!
     @IBOutlet weak var helpButton: UIButton!
+    
+    @IBOutlet weak var playerName: UITextField!
     
     @IBAction func showHelp(_ sender: UIButton) {
         performSegue(withIdentifier: "showHelp", sender: nil)
@@ -30,8 +35,11 @@ class StartViewController: UIViewController {
         let value = UIInterfaceOrientation.landscapeLeft.rawValue
         UIDevice.current.setValue(value, forKey: "orientation")
         
-        
         // Do any additional setup after loading the view.
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,14 +62,18 @@ class StartViewController: UIViewController {
 
   
     
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "startGame" {
+            if let toViewController = segue.destination as? GameViewController {
+                toViewController.playerName = self.playerName.text
+            }
+        }
     }
-    */
 
 }

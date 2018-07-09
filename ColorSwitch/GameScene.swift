@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 import CoreMotion
-
+import UIKit
+import CoreData
 struct PhysicsCategory {
      static let Player: UInt32 = 1
      static let Obstacle: UInt32 = 2
@@ -61,6 +62,8 @@ class GameScene: SKScene {
      var jumpBackIdx: Int = 0
      var jumpReachedMax: Bool = false
      
+     var viewController: GameViewController?
+     
      override func didMove(to view: SKView) {
           self.screenCenter = CGPoint(x: view.frame.size.width/2, y: view.frame.size.height/2)
           self.newLocation = self.screenCenter
@@ -73,7 +76,7 @@ class GameScene: SKScene {
           addPointLabel()
           motionManager = CMMotionManager()
           motionManager.startAccelerometerUpdates()
-          backgroundColor = SKColor.black
+          backgroundColor = SKColor.gray
      }
      
      /// Initial creation of the PlayerFigure and start of the SKAction for
@@ -137,6 +140,8 @@ class GameScene: SKScene {
           
      }
      
+     
+    
      func dieAndRestart() {
           //Removes all Elements from elementList and from Gamescene
           deleteElementList()
@@ -151,11 +156,26 @@ class GameScene: SKScene {
           
           obstacles.removeAll()
           
+          //save data
+          if self.viewController?.playerName != ""{
+               let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+               let entity = NSEntityDescription.entity(forEntityName: "PlayerScore", in: context)
+               let newScore = NSManagedObject(entity: entity!, insertInto: context)
+               newScore.setValue(self.viewController?.playerName, forKey: "name")
+               newScore.setValue(self.score, forKey: "score")
+               
+               do {
+                    try context.save()
+               } catch {
+                    print("Failed to save data")
+               }
+          }          
+          
           score = 0
-          scoreLabel.text = String(score)
+          //scoreLabel.text = String(score)
           
-          
-          setupPlayerAndObstacles()
+          self.viewController?.performSegue(withIdentifier: "endGame", sender: Int(scoreLabel.text!))
+          //setupPlayerAndObstacles()
      }
      
      override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

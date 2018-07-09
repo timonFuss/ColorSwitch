@@ -11,7 +11,9 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    var playerName: String?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,11 +26,10 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
             view.ignoresSiblingOrder = true
             scene.scaleMode = .resizeFill
+            scene.viewController = self
             view.presentScene(scene)
         }
     }
-    
-    
     
     override var shouldAutorotate: Bool {
         return true
