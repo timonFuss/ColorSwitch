@@ -20,5 +20,8 @@ Denn das größte Hindernis ist die Zeit. Umso länger das Spiel gespielt wird u
 Die Wand stellt ein Objekt dar, welches sich von links nach rechts über das Spielfeld wandert. Erkennbar ist dieses durch die grüne Farbe. Durch dieses Elemente kann die Spielerfigur nicht hindurch, denn die Spielerfigur kann die entsprechende Farbe der Wand nicht annehmen. Diese muss umfahren werden.
 
 
+# Bedienung
+
+
 # Ziel des Spiels
 Ziel des Spiels ist es, sich mit anderen Spielern zu messen und sich durch eine hohe Punktzahl so weit wie möglich auf der Highscore Liste zu platzieren.
