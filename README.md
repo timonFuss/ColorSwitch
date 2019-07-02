@@ -8,7 +8,7 @@ ColorSwitch/ColorMaze ist ein gestengesteuertes iOS Spiel und erfordert damit ei
 Es wird unter verschiedenen Hindernissen unterschieden:
 
 
-### Die Farbering:
+### Die Farbringe:
 
 Die Farbringe des Spiels stellen die Hauptherausforderung des Spiels dar. Sie ziehen sich von einer Maximalgröße bis hin zur                  Spielerfigur zusammen und erzwingen den Spieler zum Handeln. Ein Farbring ist in unterschiedliche Farben unterteilt. Der Spieler hat nun die Aufgabe seine Spielerfigur durch die passende Farbe des Farbkreises zu führen. Ist keine passende Farbe im Farbkreis vorhanden so muss der Spieler blitzschnell durch tippen die Farbe seiner Spielerfigur passend wechseln. Ist der Spieler zu langsam kann der Farbring auch übersprungen werden. Dies kostet den Spieler jedoch wertvolle Punkte.
 
